@@ -8,6 +8,7 @@ class User {
   final String major;
   final String status;
   final String profileImage;
+  final bool isNew;
 
   User({
     required this.username,
@@ -19,5 +20,6 @@ class User {
     required this.major,
     required this.status,
     required this.profileImage,
+    this.isNew = false,
   });
 } 

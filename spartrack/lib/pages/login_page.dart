@@ -8,6 +8,7 @@ import 'dashboard_page.dart';
 import '../models/user.dart';
 import '../common/password_field.dart';
 import '../services/auth_service.dart';
+import 'landing_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -59,12 +60,28 @@ class _LoginPageState extends State<LoginPage> {
             text: "Welcome, ${user.fullName}!",
           ),
         ).then((_) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DashboardPage(user: user),
-            ),
-          );
+          if (user.isNew) {
+            Navigator.pushReplacement(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) => LandingPage(user: user),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                },
+                transitionDuration: const Duration(milliseconds: 600),
+              ),
+            );
+          } else {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DashboardPage(user: user),
+              ),
+            );
+          }
         });
       } else {
         ArtSweetAlert.show(

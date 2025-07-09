@@ -25,8 +25,11 @@ class AuthService {
       major: 'Service Management',
       status: 'NOT DEPLOYED',
       profileImage: 'assets/images/profile_2.png',
+      isNew: true,
     ),
   ];
+
+  List<User> get users => _users;
 
   /// Returns the authenticated user if credentials match, else null.
   User? login(String username, String password) {
