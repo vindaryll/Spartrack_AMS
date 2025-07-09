@@ -2,7 +2,8 @@ class User {
   final String username;
   final String password;
   final String fullName;
-  final String course;
+  final String collegeDept;
+  final String program;
   final String year;
   final String major;
   final String status;
@@ -12,7 +13,8 @@ class User {
     required this.username,
     required this.password,
     required this.fullName,
-    required this.course,
+    required this.collegeDept,
+    required this.program,
     required this.year,
     required this.major,
     required this.status,

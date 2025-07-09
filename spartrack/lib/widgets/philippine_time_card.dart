@@ -1,8 +1,40 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 import '../utils/date_time_utils.dart';
 
-class PhilippineTimeCard extends StatelessWidget {
+class PhilippineTimeCard extends StatefulWidget {
   const PhilippineTimeCard({super.key});
+
+  @override
+  State<PhilippineTimeCard> createState() => _PhilippineTimeCardState();
+}
+
+class _PhilippineTimeCardState extends State<PhilippineTimeCard> {
+  Timer? _timer;
+  String _currentDate = '';
+  String _currentTime = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _updateDateTime();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      _updateDateTime();
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void _updateDateTime() {
+    setState(() {
+      _currentDate = DateTimeUtils.getFormattedDate();
+      _currentTime = DateTimeUtils.getFormattedTime();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +70,7 @@ class PhilippineTimeCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  DateTimeUtils.getFormattedDate(),
+                  _currentDate,
                   style: const TextStyle(
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w600,
@@ -47,7 +79,7 @@ class PhilippineTimeCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  DateTimeUtils.getFormattedTime(),
+                  _currentTime,
                   style: const TextStyle(
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w600,

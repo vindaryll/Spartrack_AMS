@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/landing_page.dart';
+import 'pages/login_page.dart';
 import 'utils/app_colors.dart';
 
 void main() {
@@ -43,7 +43,7 @@ class SparTrackApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const LandingPage(),
+      home: const LoginPage(),
     );
   }
 }

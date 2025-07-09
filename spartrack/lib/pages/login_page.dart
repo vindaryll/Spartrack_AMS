@@ -3,49 +3,11 @@ import '../utils/app_colors.dart';
 import '../widgets/custom_button.dart';
 import '../common/custom_text_field.dart';
 import '../widgets/logo_widget.dart';
-import 'signup_page.dart';
 import 'package:art_sweetalert/art_sweetalert.dart';
 import 'dashboard_page.dart';
 import '../models/user.dart';
 import '../common/password_field.dart';
-
-// Handles authentication logic and user credential storage.
-class AuthService {
-  // Used list for pre-stored credentials (for demo)
-  final List<User> _users = [
-    User(
-      username: 'user',
-      password: 'spartans123',
-      fullName: 'ALOCILLO, MELVIN DARYLL',
-      course: 'College of Informatics and Computing Sciences',
-      year: 'BS Information Technology - THIRD YEAR',
-      major: 'Major in Service Management',
-      status: 'DEPLOYED',
-      profileImage: 'assets/images/profile_1.png',
-    ),
-    User(
-      username: 'admin',
-      password: 'adminpass',
-      fullName: 'ADMIN USER',
-      course: 'Admin Department',
-      year: 'Administrator',
-      major: 'System Management',
-      status: 'ACTIVE',
-      profileImage: 'assets/images/profile_1.png', // Use same or different image
-    ),
-  ];
-
-  /// Returns the authenticated user if credentials match, else null.
-  User? login(String username, String password) {
-    try {
-      return _users.firstWhere(
-        (user) => user.username == username && user.password == password,
-      );
-    } catch (e) {
-      return null;
-    }
-  }
-}
+import '../services/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -125,10 +87,6 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         backgroundColor: AppColors.primaryRed,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -221,37 +179,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Don't have an account? ",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SignupPage(),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        'Signup',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+
             ],
           ),
         ),

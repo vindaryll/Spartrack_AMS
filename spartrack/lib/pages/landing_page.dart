@@ -3,7 +3,6 @@ import '../utils/app_colors.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/logo_widget.dart';
 import 'login_page.dart';
-import 'signup_page.dart';
 
 // The landing page of the app, shown to users on startup.
 class LandingPage extends StatelessWidget {
@@ -61,7 +60,7 @@ class LandingPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const SignupPage(),
+                      builder: (context) => const LoginPage(),
                     ),
                   );
                 },

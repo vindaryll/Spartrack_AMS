@@ -67,16 +67,18 @@ class ProfileCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 4),
-                      _profileDetail(user.course),
-                      _profileDetail(user.year),
-                      _profileDetail(user.major),
+                      _profileDetail(user.collegeDept),
+                      _profileDetail('${user.program} - ${user.year}'),
+                      _profileDetail('Major in ${user.major}'),
                       Text(
                         user.status,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.bold,
                           fontSize: 11,
-                          color: Color(0xFF00B715),
+                          color: user.status == 'DEPLOYED' 
+                              ? const Color(0xFF00B715) 
+                              : const Color(0xFFB20000),
                         ),
                       ),
                     ],
