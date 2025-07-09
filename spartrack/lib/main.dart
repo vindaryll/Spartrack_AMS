@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'pages/login_page.dart';
+import 'pages/loading_page.dart';
 import 'utils/app_colors.dart';
 
 void main() {
@@ -43,7 +44,42 @@ class SparTrackApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const LoginPage(),
+      home: const SplashToLogin(),
     );
+  }
+}
+
+class SplashToLogin extends StatefulWidget {
+  const SplashToLogin({super.key});
+
+  @override
+  State<SplashToLogin> createState() => _SplashToLoginState();
+}
+
+class _SplashToLoginState extends State<SplashToLogin> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        Navigator.of(context).pushReplacement(
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => const LoginPage(),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
+            transitionDuration: const Duration(milliseconds: 600),
+          ),
+        );
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const LoadingPage();
   }
 }
