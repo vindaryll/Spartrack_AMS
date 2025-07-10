@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import '../models/user.dart';
-import '../widgets/custom_app_bar.dart';
 import '../widgets/profile_card.dart';
 import '../widgets/philippine_time_card.dart';
 import '../widgets/dashboard_menu_buttons.dart';
 import '../widgets/attendance_tab.dart';
 import '../widgets/accomplishments_tab.dart';
 import '../widgets/progress_dashboard_tab.dart';
+import '../widgets/app_drawer.dart';
 
 class DashboardPage extends StatefulWidget {
   final User user;
@@ -28,13 +28,13 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget _getCurrentTab() {
     switch (_selectedTabIndex) {
       case 0:
-        return const AttendanceTab();
+        return AttendanceTab(user: widget.user);
       case 1:
         return const AccomplishmentsTab();
       case 2:
         return const ProgressDashboardTab();
       default:
-        return const AttendanceTab();
+        return AttendanceTab(user: widget.user);
     }
   }
 
@@ -42,7 +42,21 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const CustomAppBar(title: 'SparTrack'),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Color(0xFF4A4A4A)),
+        title: const Text(
+          'SparTrack',
+          style: TextStyle(
+            color: Color(0xFFB20000),
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+      ),
+      drawer: AppDrawer(user: widget.user),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

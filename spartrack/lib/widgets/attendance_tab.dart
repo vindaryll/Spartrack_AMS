@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
+import '../models/user.dart';
 
 class AttendanceTab extends StatelessWidget {
-  const AttendanceTab({super.key});
+  final User user;
+  
+  const AttendanceTab({
+    super.key,
+    required this.user,
+  });
+
+  String _formatTime(String? time) {
+    return time ?? '--:--:-- --';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +75,9 @@ class AttendanceTab extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Time in: 07:31:04 AM',
-                      style: TextStyle(
+                    Text(
+                      'Time in: ${_formatTime(user.timeIn)}',
+                      style: const TextStyle(
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
@@ -75,9 +85,9 @@ class AttendanceTab extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    const Text(
-                      'Time out: --:--:-- --',
-                      style: TextStyle(
+                    Text(
+                      'Time out: ${_formatTime(user.timeOut)}',
+                      style: const TextStyle(
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                         fontSize: 13,

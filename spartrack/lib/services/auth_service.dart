@@ -14,6 +14,8 @@ class AuthService {
       major: 'Service Management',
       status: 'DEPLOYED',
       profileImage: 'assets/images/profile_1.png',
+      timeIn: '09:30:00 AM',
+      timeOut: null,
     ),
     User(
       username: 'user2',
@@ -26,6 +28,8 @@ class AuthService {
       status: 'NOT DEPLOYED',
       profileImage: 'assets/images/profile_2.png',
       isNew: true,
+      timeIn: null,
+      timeOut: null,
     ),
   ];
 
