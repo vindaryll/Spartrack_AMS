@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 // A reusable text field widget with label, validation, and password support.
 class CustomTextField extends StatefulWidget {
   final String label;
+  final String? placeholder;
   final TextEditingController? controller;
   final FormFieldValidator<String>? validator;
   final void Function(String)? onChanged;
@@ -14,6 +15,7 @@ class CustomTextField extends StatefulWidget {
   const CustomTextField({
     super.key,
     required this.label,
+    this.placeholder,
     this.controller,
     this.validator,
     this.onChanged,
@@ -44,6 +46,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         enabled: widget.enabled,
         decoration: InputDecoration(
           labelText: widget.label,
+          hintText: widget.placeholder,
           floatingLabelBehavior: FloatingLabelBehavior.auto,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6),

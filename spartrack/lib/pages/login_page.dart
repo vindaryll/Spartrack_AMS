@@ -5,7 +5,6 @@ import '../common/custom_text_field.dart';
 import '../widgets/logo_widget.dart';
 import 'package:art_sweetalert/art_sweetalert.dart';
 import 'dashboard_page.dart';
-import '../models/user.dart';
 import '../common/password_field.dart';
 import '../services/auth_service.dart';
 import 'landing_page.dart';
@@ -151,6 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(height: 24),
                       CustomTextField(
                         label: 'Username',
+                        placeholder: 'Enter your username',
                         controller: _usernameController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
