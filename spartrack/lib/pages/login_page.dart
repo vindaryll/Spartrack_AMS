@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../utils/app_colors.dart';
-import '../widgets/custom_button.dart';
+import '../common/custom_button.dart';
 import '../common/custom_text_field.dart';
-import '../widgets/logo_widget.dart';
+import '../common/logo_widget.dart';
 import 'package:art_sweetalert/art_sweetalert.dart';
 import 'dashboard_page.dart';
 import '../common/password_field.dart';

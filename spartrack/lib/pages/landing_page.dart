@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/logo_widget.dart';
+import '../common/logo_widget.dart';
 import '../utils/app_colors.dart';
 import 'dashboard_page.dart';
 import '../models/user.dart';

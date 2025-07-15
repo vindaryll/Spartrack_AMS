@@ -7,6 +7,7 @@ import '../widgets/attendance_tab.dart';
 import '../widgets/accomplishments_tab.dart';
 import '../widgets/progress_dashboard_tab.dart';
 import '../widgets/app_drawer.dart';
+import '../common/brand_app_bar.dart';
 
 class DashboardPage extends StatefulWidget {
   final User user;
@@ -42,17 +43,11 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Color(0xFF4A4A4A)),
-        title: const Text(
-          'SparTrack',
-          style: TextStyle(
-            color: Color(0xFFB20000),
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
+      appBar: BrandAppBar(
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu, color: Color(0xFF4A4A4A)),
+            onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
       ),
