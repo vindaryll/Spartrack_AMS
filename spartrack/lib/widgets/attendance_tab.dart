@@ -1,13 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+import '../common/wysiwyg_editor.dart';
 import '../models/user.dart';
 
-class AttendanceTab extends StatelessWidget {
+class AttendanceTab extends StatefulWidget {
   final User user;
-  
+
   const AttendanceTab({
     super.key,
     required this.user,
   });
+
+  @override
+  State<AttendanceTab> createState() => _AttendanceTabState();
+}
+
+class _AttendanceTabState extends State<AttendanceTab> {
+  late QuillController _quillController;
+
+  @override
+  void initState() {
+    super.initState();
+    _quillController = QuillController.basic();
+  }
+
+  @override
+  void dispose() {
+    _quillController.dispose();
+    super.dispose();
+  }
 
   String _formatTime(String? time) {
     return time ?? '--:--:-- --';
@@ -76,7 +97,7 @@ class AttendanceTab extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Time in: ${_formatTime(user.timeIn)}',
+                      'Time in: ${_formatTime(widget.user.timeIn)}',
                       style: const TextStyle(
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
@@ -86,7 +107,7 @@ class AttendanceTab extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Time out: ${_formatTime(user.timeOut)}',
+                      'Time out: ${_formatTime(widget.user.timeOut)}',
                       style: const TextStyle(
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
@@ -127,7 +148,7 @@ class AttendanceTab extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        // Accomplishments Text Field
+        // Accomplishments Rich Text Editor
         const Text(
           'Accomplishments for the day',
           style: TextStyle(
@@ -138,19 +159,9 @@ class AttendanceTab extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        Container(
-          decoration: BoxDecoration(
-            color: const Color(0xFFE5E5E5),
-            border: Border.all(color: Color(0xFF4A4A4A), width: 0.5),
-            borderRadius: BorderRadius.circular(3),
-          ),
-          child: const TextField(
-            maxLines: 8,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.all(12),
-            ),
-          ),
+        WysiwygEditor(
+          controller: _quillController,
+          height: 180,
         ),
         const SizedBox(height: 24),
         // Save Accomplishments Button
@@ -165,7 +176,11 @@ class AttendanceTab extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                // Example: Access the document content
+                final doc = _quillController.document.toDelta().toJson();
+                // TODO: Save doc to backend or local storage
+              },
               icon: const Icon(Icons.save_outlined, color: Colors.white),
               label: const Text(
                 'Save Accomplishments',

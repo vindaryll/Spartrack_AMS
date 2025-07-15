@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'pages/login_page.dart';
 import 'pages/loading_page.dart';
 import 'utils/app_colors.dart';
@@ -44,6 +46,13 @@ class SparTrackApp extends StatelessWidget {
           ),
         ),
       ),
+      localizationsDelegates: const [
+        ...GlobalMaterialLocalizations.delegates,
+        FlutterQuillLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'),
+      ],
       home: const SplashToLogin(),
     );
   }
