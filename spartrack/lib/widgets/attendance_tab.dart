@@ -153,15 +153,22 @@ class _AttendanceTabState extends State<AttendanceTab> {
           'Accomplishments for the day',
           style: TextStyle(
             fontFamily: 'Poppins',
-            fontWeight: FontWeight.w500,
-            fontSize: 13,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
             color: Colors.black,
           ),
         ),
         const SizedBox(height: 8),
-        WysiwygEditor(
-          controller: _quillController,
-          height: 180,
+        Container(
+          decoration: BoxDecoration(
+            color: Color(0xFFE5E5E5),
+            border: Border.all(color: Color(0xFF4A4A4A), width: 0.5),
+            borderRadius: BorderRadius.circular(3),
+          ),
+          child: WysiwygEditor(
+            controller: _quillController,
+            height: 180,
+          ),
         ),
         const SizedBox(height: 24),
         // Save Accomplishments Button
@@ -176,10 +183,13 @@ class _AttendanceTabState extends State<AttendanceTab> {
                   borderRadius: BorderRadius.circular(15),
                 ),
               ),
-              onPressed: () {
+                onPressed: () {
+
                 // Example: Access the document content
                 final doc = _quillController.document.toDelta().toJson();
-                // TODO: Save doc to backend or local storage
+                
+                // Handling event; Console log the document content
+                debugPrint('Accomplishments saved: $doc');
               },
               icon: const Icon(Icons.save_outlined, color: Colors.white),
               label: const Text(
