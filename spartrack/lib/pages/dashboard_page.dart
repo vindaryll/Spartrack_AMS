@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import '../models/user.dart';
 import '../widgets/profile_card.dart';
 import '../widgets/philippine_time_card.dart';
-import '../widgets/dashboard_menu_buttons.dart';
 import '../widgets/attendance_tab.dart';
 import '../widgets/accomplishments_tab.dart';
 import '../widgets/progress_dashboard_tab.dart';
 import '../widgets/app_drawer.dart';
+import '../widgets/bottom_navigation_bar.dart';
 import '../common/brand_app_bar.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -53,46 +53,34 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
       drawer: AppDrawer(user: widget.user),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Philippine Standard Time and Date/Time
-                const PhilippineTimeCard(),
-                const SizedBox(height: 16),
-                // Profile Card
-                ProfileCard(user: widget.user),
-                const SizedBox(height: 16),
-                // Menu Buttons with tab switching
-                DashboardMenuButtons(
-                  onTabChanged: _onTabChanged,
-                  selectedIndex: _selectedTabIndex,
-                ),
-                const SizedBox(height: 16),
-                // Current Tab Content
-                _getCurrentTab(),
-                const SizedBox(height: 24),
-                // Footer
-                Container(
-                  width: double.infinity,
-                  height: 30,
-                  color: const Color(0xFFB20000),
-                  alignment: Alignment.center,
-                  child: const Text(
-                    '© 2025 SparTrack. All rights reserved.',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 10,
-                      color: Colors.white,
-                    ),
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      // Philippine Standard Time and Date/Time
+                      const PhilippineTimeCard(),
+                      const SizedBox(height: 16),
+                      // Profile Card
+                      ProfileCard(user: widget.user),
+                      const SizedBox(height: 16),
+                      // Current Tab Content
+                      _getCurrentTab(),
+                    ],
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
+            // Bottom Navigation Bar
+            CustomBottomNavigationBar(
+              selectedIndex: _selectedTabIndex,
+              onTap: _onTabChanged,
+            ),
+          ],
         ),
       ),
     );

@@ -55,11 +55,11 @@ class _PhilippineTimeCardState extends State<PhilippineTimeCard> {
           Container(
             decoration: BoxDecoration(
               color: Colors.white,
-              border: Border.all(color: Color(0xFF4A4A4A), width: 0.5),
+              border: Border.all(color: const Color(0xFF4A4A4A), width: 0.5),
               borderRadius: BorderRadius.circular(3),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF000000).withValues(alpha: 0.15),
+                  color: const Color(0x26000000),
                   blurRadius: 10,
                   offset: const Offset(0, 4),
                 ),

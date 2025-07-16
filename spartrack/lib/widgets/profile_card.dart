@@ -14,7 +14,7 @@ class ProfileCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.25),
+            color: const Color(0x40000000),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -22,6 +22,7 @@ class ProfileCard extends StatelessWidget {
       ),
       child: Column(
         children: [
+          // Header with red background
           Container(
             height: 37,
             decoration: BoxDecoration(
@@ -37,22 +38,25 @@ class ProfileCard extends StatelessWidget {
               'OJT Attendance Monitoring System',
               style: TextStyle(
                 fontFamily: 'Poppins',
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w700,
                 fontSize: 15,
                 color: Colors.white,
               ),
             ),
           ),
+          // Profile content
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Profile image
                 CircleAvatar(
                   radius: 52,
                   backgroundImage: AssetImage(user.profileImage),
                 ),
                 const SizedBox(width: 16),
+                // User details
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +65,7 @@ class ProfileCard extends StatelessWidget {
                         user.fullName,
                         style: const TextStyle(
                           fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w700,
                           fontSize: 15,
                           color: Colors.black,
                         ),
@@ -74,7 +78,7 @@ class ProfileCard extends StatelessWidget {
                         user.status,
                         style: TextStyle(
                           fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w700,
                           fontSize: 11,
                           color: user.status == 'DEPLOYED' 
                               ? const Color(0xFF00B715) 

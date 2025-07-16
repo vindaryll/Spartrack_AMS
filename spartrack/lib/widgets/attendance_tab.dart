@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import '../common/wysiwyg_editor.dart';
+import '../common/custom_action_button.dart';
 import '../models/user.dart';
 
 class AttendanceTab extends StatefulWidget {
@@ -34,6 +35,24 @@ class _AttendanceTabState extends State<AttendanceTab> {
     return time ?? '--:--:-- --';
   }
 
+  void _handleTimeIn() {
+    // TODO: Implement time in logic
+    debugPrint('Time In pressed');
+  }
+
+  void _handleTimeOut() {
+    // TODO: Implement time out logic
+    debugPrint('Time Out pressed');
+  }
+
+  void _handleSaveAccomplishments() {
+    // Example: Access the document content
+    final doc = _quillController.document.toDelta().toJson();
+    
+    // Handling event; Console log the document content
+    debugPrint('Accomplishments saved: $doc');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -42,46 +61,16 @@ class _AttendanceTabState extends State<AttendanceTab> {
         Row(
           children: [
             Expanded(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF00B715),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                ),
-                onPressed: () {},
-                child: const Text(
-                  'TIME IN',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.white,
-                  ),
-                ),
+              child: TimeActionButton(
+                isTimeIn: true,
+                onPressed: _handleTimeIn,
               ),
             ),
             const SizedBox(width: 8),
             Expanded(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF55B5B),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                ),
-                onPressed: () {},
-                child: const Text(
-                  'TIME OUT',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.white,
-                  ),
-                ),
+              child: TimeActionButton(
+                isTimeIn: false,
+                onPressed: _handleTimeOut,
               ),
             ),
           ],
@@ -153,16 +142,16 @@ class _AttendanceTabState extends State<AttendanceTab> {
           'Accomplishments for the day',
           style: TextStyle(
             fontFamily: 'Poppins',
-            fontWeight: FontWeight.bold,
-            fontSize: 15,
+            fontWeight: FontWeight.w500,
+            fontSize: 13,
             color: Colors.black,
           ),
         ),
         const SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
-            color: Color(0xFFE5E5E5),
-            border: Border.all(color: Color(0xFF4A4A4A), width: 0.5),
+            color: const Color(0xFFE5E5E5),
+            border: Border.all(color: const Color(0xFF4A4A4A), width: 0.5),
             borderRadius: BorderRadius.circular(3),
           ),
           child: WysiwygEditor(
@@ -172,38 +161,9 @@ class _AttendanceTabState extends State<AttendanceTab> {
         ),
         const SizedBox(height: 24),
         // Save Accomplishments Button
-        Center(
-          child: SizedBox(
-            width: 322,
-            height: 32,
-            child: ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF00B715),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
-                onPressed: () {
-
-                // Example: Access the document content
-                final doc = _quillController.document.toDelta().toJson();
-                
-                // Handling event; Console log the document content
-                debugPrint('Accomplishments saved: $doc');
-              },
-              icon: const Icon(Icons.save_outlined, color: Colors.white),
-              label: const Text(
-                'Save Accomplishments',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
-                  color: Colors.white,
-                  letterSpacing: 0.07,
-                ),
-              ),
-            ),
-          ),
+        SaveButton(
+          label: 'Save Accomplishments',
+          onPressed: _handleSaveAccomplishments,
         ),
       ],
     );
