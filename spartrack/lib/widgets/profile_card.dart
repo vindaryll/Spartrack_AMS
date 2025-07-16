@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/user.dart';
+import '../utils/app_colors.dart';
 
 class ProfileCard extends StatelessWidget {
   final User user;
@@ -10,11 +11,11 @@ class ProfileCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 1),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(5),
         boxShadow: [
           BoxShadow(
-            color: const Color(0x40000000),
+            color: AppColors.shadowDark,
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -26,21 +27,20 @@ class ProfileCard extends StatelessWidget {
           Container(
             height: 37,
             decoration: BoxDecoration(
-              color: const Color(0xFFB20000),
-              border: Border.all(color: Colors.black, width: 0.5),
+              color: AppColors.accentRed,
+              border: Border.all(color: AppColors.black, width: 0.5),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(3),
                 topRight: Radius.circular(3),
               ),
             ),
             alignment: Alignment.center,
-            child: const Text(
+            child: Text(
               'OJT Attendance Monitoring System',
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w700,
+              style: AppColors.subheadingStyle.copyWith(
                 fontSize: 15,
-                color: Colors.white,
+                color: AppColors.white,
+                fontWeight: FontWeight.w700,
               ),
             ),
           ),
@@ -63,11 +63,9 @@ class ProfileCard extends StatelessWidget {
                     children: [
                       Text(
                         user.fullName,
-                        style: const TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w700,
+                        style: AppColors.subheadingStyle.copyWith(
                           fontSize: 15,
-                          color: Colors.black,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -76,13 +74,12 @@ class ProfileCard extends StatelessWidget {
                       _profileDetail('Major in ${user.major}'),
                       Text(
                         user.status,
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
+                        style: AppColors.captionStyle.copyWith(
                           fontWeight: FontWeight.w700,
                           fontSize: 11,
-                          color: user.status == 'DEPLOYED' 
-                              ? const Color(0xFF00B715) 
-                              : const Color(0xFFB20000),
+                          color: user.status == 'DEPLOYED'
+                              ? AppColors.successGreen
+                              : AppColors.accentRed,
                         ),
                       ),
                     ],
@@ -106,18 +103,17 @@ class ProfileCard extends StatelessWidget {
             height: 4,
             margin: const EdgeInsets.only(right: 6),
             decoration: const BoxDecoration(
-              color: Color(0xFF4A4A4A),
+              color: AppColors.borderGray,
               shape: BoxShape.circle,
             ),
           ),
           Flexible(
             child: Text(
               text,
-              style: const TextStyle(
-                fontFamily: 'Poppins',
+              style: AppColors.captionStyle.copyWith(
                 fontWeight: FontWeight.w500,
                 fontSize: 11,
-                color: Colors.black,
+                color: AppColors.black,
               ),
             ),
           ),

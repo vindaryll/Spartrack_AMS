@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import '../utils/date_time_utils.dart';
+import '../utils/app_colors.dart';
 
 class PhilippineTimeCard extends StatefulWidget {
   const PhilippineTimeCard({super.key});
@@ -43,23 +44,22 @@ class _PhilippineTimeCardState extends State<PhilippineTimeCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Philippine Standard Time',
-            style: TextStyle(
-              fontFamily: 'Poppins',
+            style: AppColors.captionStyle.copyWith(
               fontSize: 12,
-              color: Colors.black,
+              color: AppColors.black,
             ),
           ),
           const SizedBox(height: 4),
           Container(
             decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: const Color(0xFF4A4A4A), width: 0.5),
+              color: AppColors.white,
+              border: Border.all(color: AppColors.borderGray, width: 0.5),
               borderRadius: BorderRadius.circular(3),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0x26000000),
+                  color: AppColors.shadowLight,
                   blurRadius: 10,
                   offset: const Offset(0, 4),
                 ),
@@ -71,20 +71,18 @@ class _PhilippineTimeCardState extends State<PhilippineTimeCard> {
               children: [
                 Text(
                   _currentDate,
-                  style: const TextStyle(
-                    fontFamily: 'Poppins',
+                  style: AppColors.bodyStyle.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 15,
-                    color: Colors.black,
+                    color: AppColors.black,
                   ),
                 ),
                 Text(
                   _currentTime,
-                  style: const TextStyle(
-                    fontFamily: 'Poppins',
+                  style: AppColors.bodyStyle.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 15,
-                    color: Colors.black,
+                    color: AppColors.black,
                   ),
                 ),
               ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/app_colors.dart';
 
 class AccomplishmentsTab extends StatelessWidget {
   const AccomplishmentsTab({super.key});
@@ -9,37 +10,33 @@ class AccomplishmentsTab extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Header
-        const Text(
+        Text(
           'Accomplishments & RLE Records',
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.bold,
+          style: AppColors.headingStyle.copyWith(
             fontSize: 24,
-            color: Colors.black,
+            color: AppColors.black,
           ),
         ),
         const SizedBox(height: 16),
-        
         // Info Card
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: const Color(0xFFE3F2FD),
+            color: AppColors.lightBlue,
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: const Color(0xFF2196F3), width: 1),
+            border: Border.all(color: AppColors.infoBlue, width: 1),
           ),
           child: Row(
-            children: const [
-              Icon(Icons.info_outline, color: Color(0xFF2196F3), size: 24),
-              SizedBox(width: 12),
+            children: [
+              const Icon(Icons.info_outline, color: AppColors.infoBlue, size: 24),
+              const SizedBox(width: 12),
               Expanded(
                 child: Text(
                   'Track your daily accomplishments and RLE (Related Learning Experience) activities here. This helps monitor your progress and learning outcomes.',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
+                  style: AppColors.captionStyle.copyWith(
                     fontSize: 14,
-                    color: Color(0xFF1976D2),
+                    color: AppColors.infoBlueDark,
                     height: 1.4,
                   ),
                 ),
@@ -48,135 +45,123 @@ class AccomplishmentsTab extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 24),
-        
         // Date Selector
         Row(
           children: [
-            const Text(
+            Text(
               'Select Date: ',
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w600,
+              style: AppColors.subheadingStyle.copyWith(
                 fontSize: 16,
-                color: Colors.black,
+                color: AppColors.black,
+                fontWeight: FontWeight.w600,
               ),
             ),
             const SizedBox(width: 12),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey.shade400),
+                border: Border.all(color: AppColors.fieldGray),
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Icon(Icons.calendar_today, size: 18, color: Colors.grey),
-                  SizedBox(width: 8),
+                children: [
+                  const Icon(Icons.calendar_today, size: 18, color: AppColors.darkGray),
+                  const SizedBox(width: 8),
                   Text(
                     'Today',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
+                    style: AppColors.captionStyle.copyWith(
                       fontSize: 14,
-                      color: Colors.black,
+                      color: AppColors.black,
                     ),
                   ),
-                  SizedBox(width: 8),
-                  Icon(Icons.arrow_drop_down, color: Colors.grey),
+                  const SizedBox(width: 8),
+                  const Icon(Icons.arrow_drop_down, color: AppColors.darkGray),
                 ],
               ),
             ),
           ],
         ),
         const SizedBox(height: 24),
-        
         // Accomplishments Section
-        const Text(
+        Text(
           'Daily Accomplishments',
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w600,
+          style: AppColors.subheadingStyle.copyWith(
             fontSize: 18,
-            color: Colors.black,
+            color: AppColors.black,
+            fontWeight: FontWeight.w600,
           ),
         ),
         const SizedBox(height: 12),
         Container(
           decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: Colors.grey.shade300),
+            color: AppColors.white,
+            border: Border.all(color: AppColors.fieldGray),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: const TextField(
+          child: TextField(
             maxLines: 6,
             decoration: InputDecoration(
               hintText: 'Enter your accomplishments for the day...',
-              hintStyle: TextStyle(
-                fontFamily: 'Poppins',
+              hintStyle: AppColors.captionStyle.copyWith(
                 fontSize: 14,
-                color: Colors.grey,
+                color: AppColors.darkGray,
               ),
               border: InputBorder.none,
-              contentPadding: EdgeInsets.all(16),
+              contentPadding: const EdgeInsets.all(16),
             ),
           ),
         ),
         const SizedBox(height: 24),
-        
         // RLE Section
-        const Text(
+        Text(
           'RLE Activities',
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w600,
+          style: AppColors.subheadingStyle.copyWith(
             fontSize: 18,
-            color: Colors.black,
+            color: AppColors.black,
+            fontWeight: FontWeight.w600,
           ),
         ),
         const SizedBox(height: 12),
         Container(
           decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: Colors.grey.shade300),
+            color: AppColors.white,
+            border: Border.all(color: AppColors.fieldGray),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: const TextField(
+          child: TextField(
             maxLines: 6,
             decoration: InputDecoration(
               hintText: 'Describe your RLE activities and learning experiences...',
-              hintStyle: TextStyle(
-                fontFamily: 'Poppins',
+              hintStyle: AppColors.captionStyle.copyWith(
                 fontSize: 14,
-                color: Colors.grey,
+                color: AppColors.darkGray,
               ),
               border: InputBorder.none,
-              contentPadding: EdgeInsets.all(16),
+              contentPadding: const EdgeInsets.all(16),
             ),
           ),
         ),
         const SizedBox(height: 32),
-        
         // Action Buttons
         Row(
           children: [
             Expanded(
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF00B715),
+                  backgroundColor: AppColors.successGreen,
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
                 onPressed: () {},
-                icon: const Icon(Icons.save, color: Colors.white),
-                label: const Text(
+                icon: const Icon(Icons.save, color: AppColors.white),
+                label: Text(
                   'Save Record',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
+                  style: AppColors.buttonStyle.copyWith(
                     fontSize: 16,
-                    color: Colors.white,
+                    color: AppColors.white,
                   ),
                 ),
               ),
@@ -186,20 +171,18 @@ class AccomplishmentsTab extends StatelessWidget {
               child: OutlinedButton.icon(
                 style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 12),
-                  side: const BorderSide(color: Color(0xFF00B715)),
+                  side: const BorderSide(color: AppColors.successGreen),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
                 onPressed: () {},
-                icon: const Icon(Icons.history, color: Color(0xFF00B715)),
-                label: const Text(
+                icon: const Icon(Icons.history, color: AppColors.successGreen),
+                label: Text(
                   'View History',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
+                  style: AppColors.buttonStyle.copyWith(
                     fontSize: 16,
-                    color: Color(0xFF00B715),
+                    color: AppColors.successGreen,
                   ),
                 ),
               ),

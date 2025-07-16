@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/app_colors.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final int selectedIndex;
@@ -15,10 +16,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
     return Container(
       height: 58,
       decoration: const BoxDecoration(
-        color: Color(0xFFB20000),
+        color: AppColors.accentRed,
         boxShadow: [
           BoxShadow(
-            color: Color(0x40000000),
+            color: AppColors.shadowDark,
             blurRadius: 5,
             offset: Offset(0, 4),
           ),
@@ -63,15 +64,15 @@ class CustomBottomNavigationBar extends StatelessWidget {
             width: 36,
             height: 36,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppColors.white,
               shape: BoxShape.circle,
               border: isSelected 
-                ? Border.all(color: const Color(0xFFF55B5B), width: 4)
+                ? Border.all(color: AppColors.dangerRed, width: 4)
                 : null,
             ),
             child: Icon(
               icon,
-              color: const Color(0xFFB20000),
+              color: AppColors.accentRed,
               size: 20,
             ),
           ),

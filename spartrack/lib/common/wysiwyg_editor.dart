@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import '../utils/app_colors.dart';
 
 class WysiwygEditor extends StatefulWidget {
   final QuillController controller;
@@ -42,15 +43,18 @@ class _WysiwygEditorState extends State<WysiwygEditor> {
         Container(
           height: widget.height,
           decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: Colors.grey.shade400),
+            color: AppColors.white,
+            border: Border.all(color: AppColors.fieldGray),
             borderRadius: BorderRadius.circular(3),
           ),
           child: Padding(
             padding: const EdgeInsets.all(12),
-            child: QuillEditor.basic(
-              controller: widget.controller,
-              focusNode: _focusNode,
+            child: DefaultTextStyle(
+              style: AppColors.bodyStyle.copyWith(fontSize: 14),
+              child: QuillEditor.basic(
+                controller: widget.controller,
+                focusNode: _focusNode,
+              ),
             ),
           ),
         ),

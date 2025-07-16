@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/app_colors.dart';
 
 class CustomActionButton extends StatelessWidget {
   final Color backgroundColor;
@@ -45,7 +46,7 @@ class CustomActionButton extends StatelessWidget {
         boxShadow: hasShadow
             ? [
                 BoxShadow(
-                  color: const Color(0x80000000),
+                  color: AppColors.shadowDark,
                   blurRadius: 4,
                   offset: const Offset(0, 2),
                 ),
@@ -67,17 +68,16 @@ class CustomActionButton extends StatelessWidget {
           children: [
             Icon(
               icon,
-              color: iconColor ?? Colors.white,
+              color: iconColor ?? AppColors.white,
               size: iconSize ?? 24,
             ),
             const SizedBox(width: 8),
             Text(
               label,
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontWeight: fontWeight ?? FontWeight.w600,
-                fontSize: fontSize ?? 20,
-                color: textColor ?? Colors.white,
+              style: AppColors.buttonStyle.copyWith(
+                fontWeight: fontWeight,
+                fontSize: fontSize,
+                color: textColor ?? AppColors.white,
                 letterSpacing: 0.07,
               ),
             ),
@@ -107,7 +107,7 @@ class SaveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: CustomActionButton(
-        backgroundColor: const Color(0xFF00B715),
+        backgroundColor: AppColors.successGreen,
         icon: Icons.save_outlined,
         label: label,
         onPressed: onPressed,
@@ -137,8 +137,8 @@ class TimeActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomActionButton(
       backgroundColor: isTimeIn 
-          ? const Color(0xFF00B715) 
-          : const Color(0xFFF55B5B),
+          ? AppColors.successGreen 
+          : AppColors.dangerRed,
       icon: isTimeIn 
           ? Icons.access_time 
           : Icons.access_time_filled,

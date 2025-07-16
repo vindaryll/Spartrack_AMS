@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/app_colors.dart';
 
 class ProgressDashboardTab extends StatelessWidget {
   const ProgressDashboardTab({super.key});
@@ -9,17 +10,14 @@ class ProgressDashboardTab extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Header
-        const Text(
+        Text(
           'Progress Dashboard',
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.bold,
+          style: AppColors.headingStyle.copyWith(
             fontSize: 24,
-            color: Colors.black,
+            color: AppColors.black,
           ),
         ),
         const SizedBox(height: 16),
-        
         // Summary Cards
         Row(
           children: [
@@ -28,7 +26,7 @@ class ProgressDashboardTab extends StatelessWidget {
                 title: 'Total Days',
                 value: '45',
                 icon: Icons.calendar_month,
-                color: const Color(0xFF2196F3),
+                color: AppColors.infoBlue,
               ),
             ),
             const SizedBox(width: 16),
@@ -37,7 +35,7 @@ class ProgressDashboardTab extends StatelessWidget {
                 title: 'Attendance Rate',
                 value: '98%',
                 icon: Icons.check_circle,
-                color: const Color(0xFF00B715),
+                color: AppColors.successGreen,
               ),
             ),
             const SizedBox(width: 16),
@@ -46,21 +44,19 @@ class ProgressDashboardTab extends StatelessWidget {
                 title: 'Tasks Completed',
                 value: '127',
                 icon: Icons.assignment_turned_in,
-                color: const Color(0xFFFF9800),
+                color: AppColors.orange,
               ),
             ),
           ],
         ),
         const SizedBox(height: 32),
-        
         // Progress Chart Section
-        const Text(
+        Text(
           'Weekly Progress',
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w600,
+          style: AppColors.subheadingStyle.copyWith(
             fontSize: 18,
-            color: Colors.black,
+            color: AppColors.black,
+            fontWeight: FontWeight.w600,
           ),
         ),
         const SizedBox(height: 16),
@@ -68,12 +64,12 @@ class ProgressDashboardTab extends StatelessWidget {
           height: 200,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.white,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.grey.shade300),
+            border: Border.all(color: AppColors.fieldGray),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.05),
+                color: AppColors.shadowLight,
                 blurRadius: 10,
                 offset: const Offset(0, 2),
               ),
@@ -83,22 +79,20 @@ class ProgressDashboardTab extends StatelessWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   Text(
                     'This Week',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w600,
+                    style: AppColors.subheadingStyle.copyWith(
                       fontSize: 16,
-                      color: Colors.black,
+                      color: AppColors.black,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
                     '5/7 days',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
+                    style: AppColors.captionStyle.copyWith(
                       fontSize: 14,
-                      color: Colors.grey,
+                      color: AppColors.darkGray,
                     ),
                   ),
                 ],
@@ -113,13 +107,13 @@ class ProgressDashboardTab extends StatelessWidget {
                       margin: const EdgeInsets.symmetric(horizontal: 2),
                       height: 60,
                       decoration: BoxDecoration(
-                        color: isCompleted ? const Color(0xFF00B715) : Colors.grey.shade200,
+                        color: isCompleted ? AppColors.successGreen : AppColors.fieldGray,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
                         child: Icon(
                           isCompleted ? Icons.check : Icons.close,
-                          color: isCompleted ? Colors.white : Colors.grey.shade400,
+                          color: isCompleted ? AppColors.white : AppColors.darkGray,
                           size: 20,
                         ),
                       ),
@@ -130,50 +124,27 @@ class ProgressDashboardTab extends StatelessWidget {
               const SizedBox(height: 12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    'Mon',
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
-                  ),
-                  Text(
-                    'Tue',
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
-                  ),
-                  Text(
-                    'Wed',
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
-                  ),
-                  Text(
-                    'Thu',
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
-                  ),
-                  Text(
-                    'Fri',
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
-                  ),
-                  Text(
-                    'Sat',
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
-                  ),
-                  Text(
-                    'Sun',
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
-                  ),
+                children: [
+                  Text('Mon', style: AppColors.captionStyle.copyWith(fontSize: 12, color: AppColors.darkGray)),
+                  Text('Tue', style: AppColors.captionStyle.copyWith(fontSize: 12, color: AppColors.darkGray)),
+                  Text('Wed', style: AppColors.captionStyle.copyWith(fontSize: 12, color: AppColors.darkGray)),
+                  Text('Thu', style: AppColors.captionStyle.copyWith(fontSize: 12, color: AppColors.darkGray)),
+                  Text('Fri', style: AppColors.captionStyle.copyWith(fontSize: 12, color: AppColors.darkGray)),
+                  Text('Sat', style: AppColors.captionStyle.copyWith(fontSize: 12, color: AppColors.darkGray)),
+                  Text('Sun', style: AppColors.captionStyle.copyWith(fontSize: 12, color: AppColors.darkGray)),
                 ],
               ),
             ],
           ),
         ),
         const SizedBox(height: 32),
-        
         // Recent Activities
-        const Text(
+        Text(
           'Recent Activities',
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w600,
+          style: AppColors.subheadingStyle.copyWith(
             fontSize: 18,
-            color: Colors.black,
+            color: AppColors.black,
+            fontWeight: FontWeight.w600,
           ),
         ),
         const SizedBox(height: 16),
@@ -181,25 +152,25 @@ class ProgressDashboardTab extends StatelessWidget {
           icon: Icons.login,
           title: 'Time In',
           subtitle: 'Today at 8:00 AM',
-          color: const Color(0xFF00B715),
+          color: AppColors.successGreen,
         ),
         _buildActivityItem(
           icon: Icons.logout,
           title: 'Time Out',
           subtitle: 'Today at 5:00 PM',
-          color: const Color(0xFFF55B5B),
+          color: AppColors.dangerRed,
         ),
         _buildActivityItem(
           icon: Icons.save,
           title: 'Saved Accomplishments',
           subtitle: 'Today at 4:30 PM',
-          color: const Color(0xFF2196F3),
+          color: AppColors.infoBlue,
         ),
         _buildActivityItem(
           icon: Icons.assignment_turned_in,
           title: 'Completed RLE Task',
           subtitle: 'Yesterday at 3:15 PM',
-          color: const Color(0xFFFF9800),
+          color: AppColors.orange,
         ),
       ],
     );
@@ -214,12 +185,12 @@ class ProgressDashboardTab extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(color: AppColors.fieldGray),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: AppColors.shadowLight,
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -231,20 +202,18 @@ class ProgressDashboardTab extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             value,
-            style: TextStyle(
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.bold,
+            style: AppColors.headingStyle.copyWith(
               fontSize: 24,
               color: color,
+              fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 4),
           Text(
             title,
-            style: const TextStyle(
-              fontFamily: 'Poppins',
+            style: AppColors.captionStyle.copyWith(
               fontSize: 12,
-              color: Colors.grey,
+              color: AppColors.darkGray,
             ),
             textAlign: TextAlign.center,
           ),
@@ -263,16 +232,16 @@ class ProgressDashboardTab extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: AppColors.fieldGray),
       ),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.1),
+              color: color.withOpacity(0.1),
               borderRadius: BorderRadius.circular(6),
             ),
             child: Icon(icon, color: color, size: 20),
@@ -284,19 +253,17 @@ class ProgressDashboardTab extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontFamily: 'Poppins',
+                  style: AppColors.bodyStyle.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 14,
-                    color: Colors.black,
+                    color: AppColors.black,
                   ),
                 ),
                 Text(
                   subtitle,
-                  style: const TextStyle(
-                    fontFamily: 'Poppins',
+                  style: AppColors.captionStyle.copyWith(
                     fontSize: 12,
-                    color: Colors.grey,
+                    color: AppColors.darkGray,
                   ),
                 ),
               ],

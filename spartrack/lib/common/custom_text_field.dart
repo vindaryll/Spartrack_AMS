@@ -28,31 +28,22 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  bool _isFocused = false;
-
   @override
   Widget build(BuildContext context) {
-    return Focus(
-      onFocusChange: (hasFocus) {
-        setState(() {
-          _isFocused = hasFocus;
-        });
-      },
-      child: TextFormField(
-        controller: widget.controller,
-        validator: widget.validator,
-        onChanged: widget.onChanged,
-        keyboardType: widget.keyboardType,
-        enabled: widget.enabled,
-        decoration: InputDecoration(
-          labelText: widget.label,
-          hintText: widget.placeholder,
-          floatingLabelBehavior: FloatingLabelBehavior.auto,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6),
-          ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+    return TextFormField(
+      controller: widget.controller,
+      validator: widget.validator,
+      onChanged: widget.onChanged,
+      keyboardType: widget.keyboardType,
+      enabled: widget.enabled,
+      decoration: InputDecoration(
+        labelText: widget.label,
+        hintText: widget.placeholder,
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6),
         ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
       ),
     );
   }
@@ -81,30 +72,21 @@ class FloatingLabelTextField extends StatefulWidget {
 }
 
 class _FloatingLabelTextFieldState extends State<FloatingLabelTextField> {
-  bool _isFocused = false;
-
   @override
   Widget build(BuildContext context) {
-    return Focus(
-      onFocusChange: (hasFocus) {
-        setState(() {
-          _isFocused = hasFocus;
-        });
-      },
-      child: TextFormField(
-        controller: widget.controller,
-        validator: widget.validator,
-        onChanged: widget.onChanged,
-        keyboardType: widget.keyboardType,
-        enabled: widget.enabled,
-        decoration: InputDecoration(
-          labelText: widget.label,
-          floatingLabelBehavior: FloatingLabelBehavior.auto,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6),
-          ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+    return TextFormField(
+      controller: widget.controller,
+      validator: widget.validator,
+      onChanged: widget.onChanged,
+      keyboardType: widget.keyboardType,
+      enabled: widget.enabled,
+      decoration: InputDecoration(
+        labelText: widget.label,
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6),
         ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
       ),
     );
   }

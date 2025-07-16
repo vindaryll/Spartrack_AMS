@@ -3,6 +3,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 import '../common/wysiwyg_editor.dart';
 import '../common/custom_action_button.dart';
 import '../models/user.dart';
+import '../utils/app_colors.dart';
 
 class AttendanceTab extends StatefulWidget {
   final User user;
@@ -87,21 +88,19 @@ class _AttendanceTabState extends State<AttendanceTab> {
                   children: [
                     Text(
                       'Time in: ${_formatTime(widget.user.timeIn)}',
-                      style: const TextStyle(
-                        fontFamily: 'Poppins',
+                      style: AppColors.captionStyle.copyWith(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
-                        color: Colors.black,
+                        color: AppColors.black,
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       'Time out: ${_formatTime(widget.user.timeOut)}',
-                      style: const TextStyle(
-                        fontFamily: 'Poppins',
+                      style: AppColors.captionStyle.copyWith(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
-                        color: Colors.black,
+                        color: AppColors.black,
                       ),
                     ),
                   ],
@@ -116,20 +115,20 @@ class _AttendanceTabState extends State<AttendanceTab> {
           width: double.infinity,
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: const Color(0xFFFFF6BB),
+            color: AppColors.yellowHint,
             borderRadius: BorderRadius.circular(3),
           ),
           child: Row(
-            children: const [
-              Icon(Icons.lightbulb_outline, size: 18),
-              SizedBox(width: 8),
+            children: [
+              const Icon(Icons.lightbulb_outline, size: 18, color: AppColors.black),
+              const SizedBox(width: 8),
               Expanded(
                 child: Text(
                   'Write your tasks/accomplishment below. Accomplishment/task updating is allowed anytime within the day after time-in.',
-                  style: TextStyle(
+                  style: AppColors.captionStyle.copyWith(
                     fontFamily: 'Inter',
                     fontSize: 12,
-                    color: Colors.black,
+                    color: AppColors.black,
                   ),
                 ),
               ),
@@ -138,20 +137,19 @@ class _AttendanceTabState extends State<AttendanceTab> {
         ),
         const SizedBox(height: 16),
         // Accomplishments Rich Text Editor
-        const Text(
+        Text(
           'Accomplishments for the day',
-          style: TextStyle(
-            fontFamily: 'Poppins',
+          style: AppColors.bodyStyle.copyWith(
             fontWeight: FontWeight.w500,
             fontSize: 13,
-            color: Colors.black,
+            color: AppColors.black,
           ),
         ),
         const SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
-            color: const Color(0xFFE5E5E5),
-            border: Border.all(color: const Color(0xFF4A4A4A), width: 0.5),
+            color: AppColors.fieldGray,
+            border: Border.all(color: AppColors.borderGray, width: 0.5),
             borderRadius: BorderRadius.circular(3),
           ),
           child: WysiwygEditor(
