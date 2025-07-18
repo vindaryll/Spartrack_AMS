@@ -1,3 +1,5 @@
+import 'attendance_record.dart';
+
 class User {
   final String username;
   final String password;
@@ -11,6 +13,9 @@ class User {
   final bool isNew;
   final String? timeIn;
   final String? timeOut;
+  final List<AttendanceRecord>? attendanceRecords;
+  final String? company;
+  final String? collegeCoordinator;
 
   User({
     required this.username,
@@ -25,5 +30,8 @@ class User {
     this.isNew = false,
     this.timeIn,
     this.timeOut,
+    this.attendanceRecords,
+    this.company,
+    this.collegeCoordinator,
   });
 } 
