@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:art_sweetalert/art_sweetalert.dart';
 import '../models/user.dart';
+import '../pages/loading_page.dart';
+import '../pages/login_page.dart';
 
 class AppDrawer extends StatelessWidget {
   final User user;
@@ -8,6 +11,36 @@ class AppDrawer extends StatelessWidget {
     super.key,
     required this.user,
   });
+
+  void _handleLogout(BuildContext context) async {
+
+    // Capture a valid NavigatorState before popping the drawer
+    final navigator = Navigator.of(context, rootNavigator: true);
+    Navigator.pop(context); // Close the drawer first
+    final result = await ArtSweetAlert.show(
+      context: context,
+      artDialogArgs: ArtDialogArgs(
+        type: ArtSweetAlertType.warning,
+        title: "Logout Confirmation",
+        text: "Are you sure you want to logout?",
+        showCancelBtn: true,
+        confirmButtonText: "Confirm",
+        cancelButtonText: "Cancel",
+      ),
+    );
+
+    if (result != null && result.isTapConfirmButton) {
+      navigator.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const LoadingPage()),
+        (route) => false,
+      );
+      await Future.delayed(const Duration(seconds: 1));
+      navigator.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+        (route) => false,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,10 +117,7 @@ class AppDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('Logout'),
-            onTap: () {
-              // TODO: Implement logout
-              Navigator.pop(context);
-            },
+            onTap: () => _handleLogout(context),
           ),
         ],
       ),

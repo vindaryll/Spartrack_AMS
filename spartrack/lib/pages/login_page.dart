@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
           artDialogArgs: ArtDialogArgs(
             type: ArtSweetAlertType.success,
             title: "Login Successful!",
-            text: "Welcome, ${user.fullName}!",
+            text: "Welcome, ${user.username}!",
           ),
         ).then((_) {
           if (user.isNew) {
