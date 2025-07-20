@@ -1,5 +1,7 @@
 import '../models/user.dart';
 import '../models/attendance_record.dart';
+import '../models/college_coordinator.dart';
+import '../models/company.dart';
 
 final List<User> sampleUsers = [
   User(
@@ -14,8 +16,17 @@ final List<User> sampleUsers = [
     profileImage: 'assets/images/profile_1.png',
     timeIn: '09:30:00 AM',
     timeOut: null,
-    company: 'Extension Services',
-    collegeCoordinator: 'DELA CRUZ, JUAN S.',
+    ojtDept: 'IT',
+    company: Company(
+      supervisorName: 'RUSTY JAMES VALLADOLID',
+      role: 'Company Supervisor',
+      companyAddress: '1331 Pine Trail Tomball, TEXAS 77375, US',
+    ),
+    collegeCoordinator: CollegeCoordinator(
+      fullName: 'DELA CRUZ, JUAN S.',
+      role: 'OJT Coordinator',
+      collegeDepartment: 'CICS',
+    ),
     attendanceRecords: [
       AttendanceRecord(
         date: '2024-07-01',
@@ -594,8 +605,17 @@ final List<User> sampleUsers = [
     isNew: true,
     timeIn: null,
     timeOut: null,
-    company: 'Extension Services',
-    collegeCoordinator: 'DELA CRUZ, JUAN S.',
+    ojtDept: 'IT',
+    company: Company(
+      supervisorName: 'RUSTY JAMES VALLADOLID',
+      role: 'Company Supervisor',
+      companyAddress: '1331 Pine Trail Tomball, TEXAS 77375, US',
+    ),
+    collegeCoordinator: CollegeCoordinator(
+      fullName: 'DELA CRUZ, JUAN S.',
+      role: 'OJT Coordinator',
+      collegeDepartment: 'CICS',
+    ),
     attendanceRecords: [
       AttendanceRecord(
         date: '2024-07-01',

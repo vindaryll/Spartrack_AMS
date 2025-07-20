@@ -1,4 +1,6 @@
 import 'attendance_record.dart';
+import 'college_coordinator.dart';
+import 'company.dart';
 
 class User {
   final String username;
@@ -13,9 +15,10 @@ class User {
   final bool isNew;
   final String? timeIn;
   final String? timeOut;
+  final String ojtDept;
   final List<AttendanceRecord>? attendanceRecords;
-  final String? company;
-  final String? collegeCoordinator;
+  final CollegeCoordinator? collegeCoordinator;
+  final Company? company;
 
   User({
     required this.username,
@@ -30,8 +33,9 @@ class User {
     this.isNew = false,
     this.timeIn,
     this.timeOut,
+    required this.ojtDept,
     this.attendanceRecords,
-    this.company,
     this.collegeCoordinator,
+    this.company,
   });
 } 

@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   art_sweetalert: ^0.0.5
   flutter_quill: ^11.4.1
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:

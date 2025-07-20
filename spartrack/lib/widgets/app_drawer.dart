@@ -34,7 +34,7 @@ class AppDrawer extends StatelessWidget {
         MaterialPageRoute(builder: (context) => const LoadingPage()),
         (route) => false,
       );
-      await Future.delayed(const Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 2));
       navigator.pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const LoginPage()),
         (route) => false,
