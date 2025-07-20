@@ -4,6 +4,9 @@ import '../common/wysiwyg_editor.dart';
 import '../common/custom_action_button.dart';
 import '../models/user.dart';
 import '../utils/app_colors.dart';
+import 'package:intl/intl.dart';
+import 'dart:convert';
+import '../models/attendance_record.dart';
 
 class AttendanceTab extends StatefulWidget {
   final User user;
@@ -23,7 +26,15 @@ class _AttendanceTabState extends State<AttendanceTab> {
   @override
   void initState() {
     super.initState();
-    _quillController = QuillController.basic();
+    final todayAttendance = _getTodayAttendance();
+    if (todayAttendance != null && todayAttendance.accomplishmentsDelta.isNotEmpty) {
+      _quillController = QuillController(
+        document: Document.fromJson(jsonDecode(todayAttendance.accomplishmentsDelta)),
+        selection: const TextSelection.collapsed(offset: 0),
+      );
+    } else {
+      _quillController = QuillController.basic();
+    }
   }
 
   @override
@@ -54,8 +65,17 @@ class _AttendanceTabState extends State<AttendanceTab> {
     debugPrint('Accomplishments saved: $doc');
   }
 
+  AttendanceRecord? _getTodayAttendance() {
+    final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    return widget.user.attendanceRecords?.firstWhere(
+      (rec) => rec.date == today,
+      orElse: () => AttendanceRecord(date: today, timeIn: null, timeOut: null, accomplishmentsDelta: ''),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final todayAttendance = _getTodayAttendance();
     return Column(
       children: [
         // Time In/Out Buttons
@@ -87,7 +107,7 @@ class _AttendanceTabState extends State<AttendanceTab> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Time in: ${_formatTime(widget.user.timeIn)}',
+                      'Time in: ${_formatTime(todayAttendance?.timeIn)}',
                       style: AppColors.captionStyle.copyWith(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
@@ -96,7 +116,7 @@ class _AttendanceTabState extends State<AttendanceTab> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Time out: ${_formatTime(widget.user.timeOut)}',
+                      'Time out: ${_formatTime(todayAttendance?.timeOut)}',
                       style: AppColors.captionStyle.copyWith(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,

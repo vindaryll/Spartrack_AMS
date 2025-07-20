@@ -13,8 +13,6 @@ class User {
   final String status;
   final String profileImage;
   final bool isNew;
-  final String? timeIn;
-  final String? timeOut;
   final String ojtDept;
   final List<AttendanceRecord>? attendanceRecords;
   final CollegeCoordinator? collegeCoordinator;
@@ -31,8 +29,6 @@ class User {
     required this.status,
     required this.profileImage,
     this.isNew = false,
-    this.timeIn,
-    this.timeOut,
     required this.ojtDept,
     this.attendanceRecords,
     this.collegeCoordinator,

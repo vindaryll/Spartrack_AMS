@@ -2,15 +2,15 @@ import 'dart:convert';
 
 class AttendanceRecord {
   final String date; // e.g. '2024-07-01'
-  final String timeIn; // e.g. '09:00 AM'
-  final String timeOut; // e.g. '05:00 PM'
+  final String? timeIn; // e.g. '09:00 AM'
+  final String? timeOut; // e.g. '05:00 PM'
   /// Quill Delta JSON string. Can be any rich content: bullets, checklists, headings, etc.
   final String accomplishmentsDelta;
 
   AttendanceRecord({
     required this.date,
-    required this.timeIn,
-    required this.timeOut,
+    this.timeIn,
+    this.timeOut,
     required this.accomplishmentsDelta,
   });
 

@@ -2,6 +2,9 @@ import '../models/user.dart';
 import '../models/attendance_record.dart';
 import '../models/college_coordinator.dart';
 import '../models/company.dart';
+import 'package:intl/intl.dart';
+
+final String today = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
 final List<User> sampleUsers = [
   User(
@@ -14,8 +17,6 @@ final List<User> sampleUsers = [
     major: 'Service Management',
     status: 'DEPLOYED',
     profileImage: 'assets/images/profile_1.png',
-    timeIn: '09:30:00 AM',
-    timeOut: null,
     ojtDept: 'IT',
     company: Company(
       supervisorName: 'RUSTY JAMES VALLADOLID',
@@ -28,6 +29,14 @@ final List<User> sampleUsers = [
       collegeDepartment: 'CICS',
     ),
     attendanceRecords: [
+      AttendanceRecord(
+        date: today,
+        timeIn: '09:30:00 AM',
+        timeOut: null,
+        accomplishmentsDelta: AttendanceRecord.richDelta([
+          {'text': 'Simulated today\'s attendance for user.', 'list': 'bullet'},
+        ]),
+      ),
       AttendanceRecord(
         date: '2024-07-01',
         timeIn: '09:00:34 AM',
@@ -603,8 +612,6 @@ final List<User> sampleUsers = [
     status: 'DEPLOYED',
     profileImage: 'assets/images/profile_2.png',
     isNew: true,
-    timeIn: null,
-    timeOut: null,
     ojtDept: 'IT',
     company: Company(
       supervisorName: 'RUSTY JAMES VALLADOLID',
@@ -617,6 +624,14 @@ final List<User> sampleUsers = [
       collegeDepartment: 'CICS',
     ),
     attendanceRecords: [
+      AttendanceRecord(
+        date: today,
+        timeIn: null,
+        timeOut: null,
+        accomplishmentsDelta: AttendanceRecord.richDelta([
+          {'text': 'Simulated today\'s attendance for user2.', 'list': 'bullet'},
+        ]),
+      ),
       AttendanceRecord(
         date: '2024-07-01',
         timeIn: '08:55:14 AM',
