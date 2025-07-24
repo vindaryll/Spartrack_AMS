@@ -19,7 +19,7 @@ final List<User> sampleUsers = [
     profileImage: 'assets/images/profile_1.png',
     ojtDept: 'IT',
     company: Company(
-      supervisorName: 'DELA CRUZ, JUAN S.',
+      supervisorName: 'DELA CRUZ, SUSAN S.',
       role: 'Company Supervisor',
       companyAddress: '123 Mandaluyong City, Metro Manila, Philippines',
     ),
@@ -614,7 +614,7 @@ final List<User> sampleUsers = [
     isNew: true,
     ojtDept: 'IT',
     company: Company(
-      supervisorName: 'DELA CRUZ, JUAN S.',
+      supervisorName: 'DELA CRUZ, SUSAN S.',
       role: 'Company Supervisor',
       companyAddress: '123 Mandaluyong City, Metro Manila, Philippines',
     ),

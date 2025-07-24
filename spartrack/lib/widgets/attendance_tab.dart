@@ -48,20 +48,53 @@ class _AttendanceTabState extends State<AttendanceTab> {
   }
 
   void _handleTimeIn() {
-    // TODO: Implement time in logic
-    debugPrint('Time In pressed');
+    final now = DateTime.now();
+    final today = DateFormat('yyyy-MM-dd').format(now);
+    final timeStr = DateFormat('hh:mm:ss a').format(now);
+    setState(() {
+      AttendanceRecord? todayRec = widget.user.attendanceRecords?.firstWhere(
+        (rec) => rec.date == today,
+        orElse: () => AttendanceRecord(date: today, timeIn: null, timeOut: null, accomplishmentsDelta: ''),
+      );
+      if (todayRec == null) {
+        todayRec = AttendanceRecord(date: today, timeIn: timeStr, timeOut: null, accomplishmentsDelta: '');
+        widget.user.attendanceRecords?.add(todayRec);
+      } else {
+        // Update timeIn if not set
+        if (todayRec.timeIn == null || todayRec.timeIn!.isEmpty) {
+          todayRec.timeIn = timeStr;
+        }
+      }
+    });
   }
 
   void _handleTimeOut() {
-    // TODO: Implement time out logic
-    debugPrint('Time Out pressed');
+    final now = DateTime.now();
+    final today = DateFormat('yyyy-MM-dd').format(now);
+    final timeStr = DateFormat('hh:mm:ss a').format(now);
+    setState(() {
+      AttendanceRecord? todayRec = widget.user.attendanceRecords?.firstWhere(
+        (rec) => rec.date == today,
+        orElse: () => AttendanceRecord(date: today, timeIn: null, timeOut: null, accomplishmentsDelta: ''),
+      );
+      if (todayRec != null) {
+        todayRec.timeOut = timeStr;
+      }
+    });
   }
 
   void _handleSaveAccomplishments() {
-    // Example: Access the document content
     final doc = _quillController.document.toDelta().toJson();
-    
-    // Handling event; Console log the document content
+    final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    setState(() {
+      AttendanceRecord? todayRec = widget.user.attendanceRecords?.firstWhere(
+        (rec) => rec.date == today,
+        orElse: () => AttendanceRecord(date: today, timeIn: null, timeOut: null, accomplishmentsDelta: ''),
+      );
+      if (todayRec != null) {
+        todayRec.accomplishmentsDelta = jsonEncode(doc);
+      }
+    });
     debugPrint('Accomplishments saved: $doc');
   }
 
@@ -78,6 +111,13 @@ class _AttendanceTabState extends State<AttendanceTab> {
     final todayAttendance = _getTodayAttendance();
     final hasTimeIn = todayAttendance?.timeIn != null && todayAttendance!.timeIn!.isNotEmpty;
     final hasTimeOut = todayAttendance?.timeOut != null && todayAttendance!.timeOut!.isNotEmpty;
+    // Re-initialize the QuillController with the latest accomplishmentsDelta
+    if (todayAttendance != null && todayAttendance.accomplishmentsDelta.isNotEmpty) {
+      _quillController = QuillController(
+        document: Document.fromJson(jsonDecode(todayAttendance.accomplishmentsDelta)),
+        selection: const TextSelection.collapsed(offset: 0),
+      );
+    }
     return Column(
       children: [
         // Time In/Out Buttons

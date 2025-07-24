@@ -4,6 +4,8 @@ import 'dart:convert';
 import '../utils/app_colors.dart';
 import '../models/user.dart';
 import '../models/attendance_record.dart';
+import 'package:flutter/gestures.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AccomplishmentsTab extends StatefulWidget {
   final User? user;
@@ -330,19 +332,75 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
     try {
       final List<dynamic> delta = deltaJson.isNotEmpty ? List<dynamic>.from(jsonDecode(deltaJson)) : [];
       final List<Widget> widgets = [];
-      int i = 0;
-      int orderedIndex = 1;
-      while (i < delta.length) {
-        final op = delta[i];
-        if (op is! Map || op['insert'] == null) {
-          i++;
-          continue;
+      // Helper for roman numerals
+      String toRoman(int number) {
+        if (number < 1) return '';
+        final numerals = [
+          ['M', 1000], ['CM', 900], ['D', 500], ['CD', 400],
+          ['C', 100], ['XC', 90], ['L', 50], ['XL', 40],
+          ['X', 10], ['IX', 9], ['V', 5], ['IV', 4], ['I', 1]
+        ];
+        var result = '';
+        var n = number;
+        for (final pair in numerals) {
+          final String numeral = pair[0] as String;
+          final int value = pair[1] as int;
+          while (n >= value) {
+            result += numeral;
+            n -= value;
+          }
         }
-        final text = op['insert'].toString().replaceAll('\n', '');
-        Map<String, dynamic>? attrs;
-        if (i + 1 < delta.length && delta[i + 1] is Map && delta[i + 1]['attributes'] != null) {
-          attrs = Map<String, dynamic>.from(delta[i + 1]['attributes']);
+        return result.toLowerCase();
+      }
+      // Helper for ordered list markers per Quill convention
+      String getOrderedMarker(int indent, int count) {
+        switch (indent % 5) {
+          case 0:
+            return '$count. ';
+          case 1:
+            // a., b., c., ...
+            return String.fromCharCode(96 + count) + '. ';
+          case 2:
+            // i., ii., iii., ...
+            return toRoman(count) + '. ';
+          case 3:
+            // A., B., C., ...
+            return String.fromCharCode(64 + count) + '. ';
+          case 4:
+            // I., II., III., ...
+            return toRoman(count).toUpperCase() + '. ';
+          default:
+            return '$count. ';
         }
+      }
+      // Custom checklist box (text-based)
+      Widget checklistBox(bool checked) {
+        return Padding(
+          padding: const EdgeInsets.only(right: 6, top: 2),
+          child: Text(
+            checked ? '[✓]' : '[ ]',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 13,
+              letterSpacing: 1.5,
+            ),
+          ),
+        );
+      }
+      // Group delta into lines with block attributes
+      List<Map<String, dynamic>> lines = [];
+      List<InlineSpan> lineBuffer = [];
+      Map<String, dynamic>? blockAttrs;
+      void flushLine() {
+        if (lineBuffer.isEmpty) return;
+        lines.add({
+          'spans': List<InlineSpan>.from(lineBuffer),
+          'attrs': blockAttrs != null ? Map<String, dynamic>.from(blockAttrs!) : null,
+        });
+        lineBuffer = [];
+        blockAttrs = null;
+      }
+      InlineSpan parseInline(String txt, Map<String, dynamic>? attrs) {
         TextStyle style = const TextStyle();
         if (attrs != null) {
           if (attrs['bold'] == true) style = style.merge(const TextStyle(fontWeight: FontWeight.bold));
@@ -350,57 +408,219 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
           if (attrs['underline'] == true) style = style.merge(const TextStyle(decoration: TextDecoration.underline));
           if (attrs['strike'] == true) style = style.merge(const TextStyle(decoration: TextDecoration.lineThrough));
           if (attrs['code'] == true) style = style.merge(const TextStyle(fontFamily: 'monospace', backgroundColor: Color(0xFFE0E0E0)));
+          if (attrs['link'] != null) {
+            style = style.merge(const TextStyle(color: Colors.blue, decoration: TextDecoration.underline));
+          }
         }
-        if (attrs != null && attrs['list'] == 'bullet') {
-          if (text.isNotEmpty) {
-            widgets.add(Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('• ', style: TextStyle(fontWeight: FontWeight.bold)),
-                Expanded(child: Text(text, style: style)),
-              ],
-            ));
+        // Subscript/Superscript
+        if (attrs != null && attrs['script'] != null) {
+          if (attrs['script'] == 'sub') {
+            style = style.merge(const TextStyle(fontSize: 12));
+            return WidgetSpan(
+              alignment: PlaceholderAlignment.baseline,
+              baseline: TextBaseline.alphabetic,
+              child: Transform.translate(
+                offset: const Offset(0, 4),
+                child: Text(txt, style: style),
+              ),
+            );
+          } else if (attrs['script'] == 'super') {
+            style = style.merge(const TextStyle(fontSize: 12));
+            return WidgetSpan(
+              alignment: PlaceholderAlignment.baseline,
+              baseline: TextBaseline.alphabetic,
+              child: Transform.translate(
+                offset: const Offset(0, -8),
+                child: Text(txt, style: style),
+              ),
+            );
           }
-          i += 2;
-        } else if (attrs != null && attrs['list'] == 'ordered') {
-          if (text.isNotEmpty) {
-            widgets.add(Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('${orderedIndex++}. ', style: const TextStyle(fontWeight: FontWeight.bold)),
-                Expanded(child: Text(text, style: style)),
-              ],
-            ));
+        }
+        if (attrs != null && attrs['link'] != null) {
+          return TextSpan(
+            text: txt,
+            style: style,
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                final url = attrs['link'];
+                if (url != null) {
+                  launchUrl(Uri.parse(url));
+                }
+              },
+          );
+        }
+        return TextSpan(text: txt, style: style);
+      }
+      // Parse delta into lines
+      int i = 0;
+      while (i < delta.length) {
+        final op = delta[i];
+        if (op is! Map || op['insert'] == null) {
+          i++;
+          continue;
+        }
+        final text = op['insert'].toString();
+        Map<String, dynamic>? attrs;
+        if (op['attributes'] != null) {
+          attrs = Map<String, dynamic>.from(op['attributes']);
+        }
+        if (text == '\n') {
+          blockAttrs = attrs;
+          flushLine();
+        } else if (text.contains('\n')) {
+          final parts = text.split('\n');
+          for (int j = 0; j < parts.length; j++) {
+            if (parts[j].isNotEmpty) {
+              lineBuffer.add(parseInline(parts[j], attrs));
+            }
+            if (j < parts.length - 1) {
+              blockAttrs = attrs;
+              flushLine();
+            }
           }
-          i += 2;
-        } else if (attrs != null && attrs['list'] == 'checked') {
-          widgets.add(Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(attrs['checked'] == true ? '✓ ' : '☐ ', style: const TextStyle(fontWeight: FontWeight.bold)),
-              Expanded(child: Text(text, style: style)),
-            ],
-          ));
-          i += 2;
-        } else if (attrs != null && attrs['header'] != null) {
-          widgets.add(Text(
-            text,
-            style: style.merge(TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: (14 + 2 * (3 - (attrs['header'] is int ? attrs['header'] as int : 3))).toDouble(),
-            )),
-          ));
-          i += 2;
         } else {
-          if (text.isNotEmpty) {
-            widgets.add(Text(text, style: style));
+          lineBuffer.add(parseInline(text, attrs));
+        }
+        i++;
+      }
+      flushLine();
+      // Group lines into nested lists
+      List<Widget> buildLines(List<Map<String, dynamic>> lines, int start, int indent, String? parentListType, List<int> orderedCounts) {
+        List<Widget> result = [];
+        int i = start;
+        while (i < lines.length) {
+          final attrs = lines[i]['attrs'] as Map<String, dynamic>?;
+          final lineIndent = attrs?['indent'] ?? 0;
+          final listType = attrs?['list'];
+          final checked = attrs?['checked'];
+          if (listType != null && lineIndent > indent) {
+            // Nested list
+            final nested = buildLines(lines, i, lineIndent, listType, [...orderedCounts]);
+            result.add(Padding(
+              padding: EdgeInsets.only(left: 24.0 * lineIndent),
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: nested),
+            ));
+            // Skip nested lines
+            int skip = nested.length;
+            i += skip;
+            continue;
           }
+          if (listType != null && lineIndent == indent) {
+            // List item
+            Widget bullet;
+            if (listType == 'bullet') {
+              bullet = const Text('• ', style: TextStyle(fontWeight: FontWeight.bold));
+            } else if (listType == 'ordered') {
+              int count = 1;
+              if (orderedCounts.length > indent) {
+                count = ++orderedCounts[indent];
+              } else {
+                orderedCounts.add(1);
+                count = 1;
+              }
+              String label = getOrderedMarker(indent, count);
+              bullet = Text(label, style: const TextStyle(fontWeight: FontWeight.bold));
+            } else if (listType == 'checked' || listType == 'unchecked') {
+              bullet = checklistBox(attrs?['list'] == 'checked');
+            } else {
+              bullet = const SizedBox(width: 0);
+            }
+            result.add(Padding(
+              padding: EdgeInsets.only(left: 24.0 * indent),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  bullet,
+                  Expanded(
+                    child: RichText(
+                      text: TextSpan(children: lines[i]['spans'], style: const TextStyle(color: Colors.black, fontSize: 14)),
+                    ),
+                  ),
+                ],
+              ),
+            ));
+            i++;
+            continue;
+          }
+          // Not a list item
+          if (lineIndent > indent) {
+            // Nested non-list block
+            final nested = buildLines(lines, i, lineIndent, null, [...orderedCounts]);
+            result.add(Padding(
+              padding: EdgeInsets.only(left: 24.0 * lineIndent),
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: nested),
+            ));
+            int skip = nested.length;
+            i += skip;
+            continue;
+          }
+          // Block types
+          if (attrs != null && attrs['header'] != null) {
+            result.add(Padding(
+              padding: EdgeInsets.only(left: 24.0 * lineIndent),
+              child: RichText(
+                text: TextSpan(
+                  children: lines[i]['spans'],
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: (18 + 2 * (3 - (attrs['header'] is int ? attrs['header'] as int : 3))).toDouble(),
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ));
+            i++;
+            continue;
+          }
+          if (attrs != null && attrs['blockquote'] == true) {
+            result.add(Padding(
+              padding: EdgeInsets.only(left: 24.0 * lineIndent),
+              child: Container(
+                margin: const EdgeInsets.symmetric(vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF5F5F5),
+                  border: Border(left: BorderSide(color: Colors.grey, width: 4)),
+                ),
+                child: RichText(
+                  text: TextSpan(children: lines[i]['spans'], style: const TextStyle(color: Colors.black, fontSize: 14, fontStyle: FontStyle.italic)),
+                ),
+              ),
+            ));
+            i++;
+            continue;
+          }
+          if (attrs != null && attrs['code-block'] == true) {
+            result.add(Padding(
+              padding: EdgeInsets.only(left: 24.0 * lineIndent),
+              child: Container(
+                margin: const EdgeInsets.symmetric(vertical: 4),
+                padding: const EdgeInsets.all(8),
+                color: const Color(0xFFE0E0E0),
+                width: double.infinity,
+                child: RichText(
+                  text: TextSpan(children: lines[i]['spans'], style: const TextStyle(fontFamily: 'monospace', color: Colors.black, fontSize: 14)),
+                ),
+              ),
+            ));
+            i++;
+            continue;
+          }
+          // Normal paragraph
+          result.add(Padding(
+            padding: EdgeInsets.only(left: 24.0 * lineIndent),
+            child: RichText(
+              text: TextSpan(children: lines[i]['spans'], style: const TextStyle(color: Colors.black, fontSize: 14)),
+            ),
+          ));
           i++;
         }
+        return result;
       }
+      widgets.addAll(buildLines(lines, 0, 0, null, []));
       return widgets;
-    } catch (_) {
-      return [const Text('Error parsing tasks')];
+    } catch (e) {
+      return [Text('Error parsing tasks: ${e.toString()}')];
     }
   }
 
