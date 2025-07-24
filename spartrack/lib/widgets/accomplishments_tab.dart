@@ -6,6 +6,9 @@ import '../models/user.dart';
 import '../models/attendance_record.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:printing/printing.dart';
+import '../utils/pdf_accomplishments.dart';
+import 'dart:typed_data';
 
 class AccomplishmentsTab extends StatefulWidget {
   final User? user;
@@ -47,85 +50,80 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
       builder: (context) {
         return AlertDialog(
           title: const Text('Filter Records'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  const Text('From: '),
-                  TextButton(
-                    onPressed: () async {
-                      final picked = await showDatePicker(
-                        context: context,
-                        initialDate: tempFrom ?? DateTime.now(),
-                        firstDate: DateTime(2020),
-                        lastDate: DateTime(2100),
-                      );
-                      if (picked != null) setState(() => tempFrom = picked);
-                    },
-                    child: Text(tempFrom != null ? DateFormat('yyyy-MM-dd').format(tempFrom!) : 'Select'),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  const Text('To: '),
-                  TextButton(
-                    onPressed: () async {
-                      final picked = await showDatePicker(
-                        context: context,
-                        initialDate: tempTo ?? DateTime.now(),
-                        firstDate: DateTime(2020),
-                        lastDate: DateTime(2100),
-                      );
-                      if (picked != null) setState(() => tempTo = picked);
-                    },
-                    child: Text(tempTo != null ? DateFormat('yyyy-MM-dd').format(tempTo!) : 'Select'),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        tempFrom = null;
-                        tempTo = null;
-                        _fromDate = null;
-                        _toDate = null;
-                      });
-                      Navigator.pop(context);
-                      _applyFilter();
-                    },
-                    child: const Text('Clear Filter'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _fromDate = tempFrom;
-                        _toDate = tempTo;
-                      });
-                      Navigator.pop(context);
-                      _applyFilter();
-                    },
-                    child: const Text('Filter'),
-                  ),
-                ],
-              ),
-            ],
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    const Text('From: '),
+                    TextButton(
+                      onPressed: () async {
+                        final picked = await showDatePicker(
+                          context: context,
+                          initialDate: tempFrom ?? DateTime.now(),
+                          firstDate: DateTime(2020),
+                          lastDate: DateTime(2100),
+                        );
+                        if (picked != null) setState(() => tempFrom = picked);
+                      },
+                      child: Text(tempFrom != null ? DateFormat('yyyy-MM-dd').format(tempFrom!) : 'Select'),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Text('To: '),
+                    TextButton(
+                      onPressed: () async {
+                        final picked = await showDatePicker(
+                          context: context,
+                          initialDate: tempTo ?? DateTime.now(),
+                          firstDate: DateTime(2020),
+                          lastDate: DateTime(2100),
+                        );
+                        if (picked != null) setState(() => tempTo = picked);
+                      },
+                      child: Text(tempTo != null ? DateFormat('yyyy-MM-dd').format(tempTo!) : 'Select'),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Wrap(
+                  spacing: 8,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          tempFrom = null;
+                          tempTo = null;
+                          _fromDate = null;
+                          _toDate = null;
+                        });
+                        Navigator.pop(context);
+                        _applyFilter();
+                      },
+                      child: const Text('Clear Filter'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _fromDate = tempFrom;
+                          _toDate = tempTo;
+                        });
+                        Navigator.pop(context);
+                        _applyFilter();
+                      },
+                      child: const Text('Filter'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         );
       },
     );
-  }
-
-  String _formatDateDay(String date) {
-    final dt = DateTime.parse(date);
-    final dayName = DateFormat('EEEE').format(dt);
-    final dateStr = DateFormat('MMMM d, yyyy').format(dt);
-    return '$dateStr\n$dayName';
   }
 
   // Helper to parse time string (e.g., '09:30:00 AM') to DateTime
@@ -209,6 +207,7 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                 ),
+                // put the week number here
                 const Center(
                   child: Text('Week 4', style: TextStyle(fontWeight: FontWeight.bold)),
                 ),
@@ -359,16 +358,16 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
             return '$count. ';
           case 1:
             // a., b., c., ...
-            return String.fromCharCode(96 + count) + '. ';
+            return '${String.fromCharCode(96 + count)}. ';
           case 2:
             // i., ii., iii., ...
-            return toRoman(count) + '. ';
+            return '${toRoman(count)}. ';
           case 3:
             // A., B., C., ...
-            return String.fromCharCode(64 + count) + '. ';
+            return '${String.fromCharCode(64 + count)}. ';
           case 4:
             // I., II., III., ...
-            return toRoman(count).toUpperCase() + '. ';
+            return '${toRoman(count).toUpperCase()}. ';
           default:
             return '$count. ';
         }
@@ -492,7 +491,6 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
           final attrs = lines[i]['attrs'] as Map<String, dynamic>?;
           final lineIndent = attrs?['indent'] ?? 0;
           final listType = attrs?['list'];
-          final checked = attrs?['checked'];
           if (listType != null && lineIndent > indent) {
             // Nested list
             final nested = buildLines(lines, i, lineIndent, listType, [...orderedCounts]);
@@ -659,8 +657,15 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                   ),
                 ),
                 ElevatedButton.icon(
-                  onPressed: () {
-                    // TODO: Implement print logic
+                  onPressed: () async {
+                    if (widget.user == null) return;
+                    final pdfBytes = await generateAccomplishmentsPdf(
+                      user: widget.user!,
+                      records: _filteredRecords,
+                      totalHours: _computeTotalHours(),
+                      weekLabel: 'Week 4',
+                    );
+                    await Printing.sharePdf(bytes: Uint8List.fromList(pdfBytes), filename: 'accomplishments_${widget.user?.fullName}.pdf');
                   },
                   icon: const Icon(Icons.print),
                   label: const Text('Print'),
