@@ -76,6 +76,8 @@ class _AttendanceTabState extends State<AttendanceTab> {
   @override
   Widget build(BuildContext context) {
     final todayAttendance = _getTodayAttendance();
+    final hasTimeIn = todayAttendance?.timeIn != null && todayAttendance!.timeIn!.isNotEmpty;
+    final hasTimeOut = todayAttendance?.timeOut != null && todayAttendance!.timeOut!.isNotEmpty;
     return Column(
       children: [
         // Time In/Out Buttons
@@ -84,14 +86,16 @@ class _AttendanceTabState extends State<AttendanceTab> {
             Expanded(
               child: TimeActionButton(
                 isTimeIn: true,
-                onPressed: _handleTimeIn,
+                key: const Key('timeInBtn'),
+                onPressed: (!hasTimeIn && !hasTimeOut) ? _handleTimeIn : null,
               ),
             ),
             const SizedBox(width: 8),
             Expanded(
               child: TimeActionButton(
                 isTimeIn: false,
-                onPressed: _handleTimeOut,
+                onPressed: (hasTimeIn && !hasTimeOut) ? _handleTimeOut : null,
+                key: const Key('timeOutBtn'),
               ),
             ),
           ],
@@ -107,7 +111,7 @@ class _AttendanceTabState extends State<AttendanceTab> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Time in: ${_formatTime(todayAttendance?.timeIn)}',
+                      'Time in:  ${_formatTime(todayAttendance?.timeIn)}',
                       style: AppColors.captionStyle.copyWith(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
