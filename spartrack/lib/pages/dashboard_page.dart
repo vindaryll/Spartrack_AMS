@@ -31,7 +31,7 @@ class _DashboardPageState extends State<DashboardPage> {
       case 0:
         return AttendanceTab(user: widget.user);
       case 1:
-        return const AccomplishmentsTab();
+        return AccomplishmentsTab(user: widget.user);
       case 2:
         return const ProgressDashboardTab();
       default:

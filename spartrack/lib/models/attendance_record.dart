@@ -1,9 +1,10 @@
 import 'dart:convert';
 
 class AttendanceRecord {
-  final String date; // e.g. '2024-07-01'
-  final String? timeIn; // e.g. '09:00 AM'
-  final String? timeOut; // e.g. '05:00 PM'
+  final String date;
+  final String? timeIn;
+  final String? timeOut;
+
   /// Quill Delta JSON string. Can be any rich content: bullets, checklists, headings, etc.
   final String accomplishmentsDelta;
 
@@ -13,16 +14,6 @@ class AttendanceRecord {
     this.timeOut,
     required this.accomplishmentsDelta,
   });
-
-  // Helper: Convert a List<String> to a Quill bullet list Delta JSON string
-  static String bulletsToDelta(List<String> bullets) {
-    final delta = <Map<String, dynamic>>[];
-    for (final bullet in bullets) {
-      delta.add({"insert": bullet});
-      delta.add({"attributes": {"list": "bullet"}, "insert": "\n"});
-    }
-    return jsonEncode(delta);
-  }
 
   // Helper: Create a rich Quill Delta JSON string with formatting
   static String richDelta(List<Map<String, dynamic>> items) {
@@ -47,17 +38,4 @@ class AttendanceRecord {
     return jsonEncode(delta);
   }
 
-  /// Example: Returns a Quill Delta JSON string matching a rich editor (checklist, heading, ordered, bullet, normal)
-  static String sampleDelta() {
-    final delta = [
-      {"insert": "hsadf"},
-      {"attributes": {"header": 2, "checked": true}, "insert": "\n"},
-      {"insert": "SDFSDF"},
-      {"attributes": {"list": "ordered"}, "insert": "\n"},
-      {"insert": "sdf"},
-      {"attributes": {"list": "bullet"}, "insert": "\n"},
-      {"insert": "sdfsdf\n"}
-    ];
-    return jsonEncode(delta);
-  }
 } 

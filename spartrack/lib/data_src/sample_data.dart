@@ -19,9 +19,9 @@ final List<User> sampleUsers = [
     profileImage: 'assets/images/profile_1.png',
     ojtDept: 'IT',
     company: Company(
-      supervisorName: 'RUSTY JAMES VALLADOLID',
+      supervisorName: 'DELA CRUZ, JUAN S.',
       role: 'Company Supervisor',
-      companyAddress: '1331 Pine Trail Tomball, TEXAS 77375, US',
+      companyAddress: '123 Mandaluyong City, Metro Manila, Philippines',
     ),
     collegeCoordinator: CollegeCoordinator(
       fullName: 'DELA CRUZ, JUAN S.',
@@ -614,9 +614,9 @@ final List<User> sampleUsers = [
     isNew: true,
     ojtDept: 'IT',
     company: Company(
-      supervisorName: 'RUSTY JAMES VALLADOLID',
+      supervisorName: 'DELA CRUZ, JUAN S.',
       role: 'Company Supervisor',
-      companyAddress: '1331 Pine Trail Tomball, TEXAS 77375, US',
+      companyAddress: '123 Mandaluyong City, Metro Manila, Philippines',
     ),
     collegeCoordinator: CollegeCoordinator(
       fullName: 'DELA CRUZ, JUAN S.',
