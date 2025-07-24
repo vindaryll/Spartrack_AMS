@@ -126,8 +126,30 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
     return '$dateStr\n$dayName';
   }
 
-  int _computeTotalHours() {
-    return _filteredRecords.length * 8;
+  // Helper to parse time string (e.g., '09:30:00 AM') to DateTime
+  DateTime? _parseTime(String date, String? time) {
+    if (time == null) return null;
+    try {
+      // Combine date and time, parse with DateFormat
+      return DateFormat('yyyy-MM-dd hh:mm:ss a').parse('$date $time');
+    } catch (_) {
+      return null;
+    }
+  }
+
+  // Compute hours for a single record
+  double _computeHours(AttendanceRecord rec) {
+    final inTime = _parseTime(rec.date, rec.timeIn);
+    final outTime = _parseTime(rec.date, rec.timeOut);
+    if (inTime != null && outTime != null && outTime.isAfter(inTime)) {
+      final diff = outTime.difference(inTime);
+      return diff.inMinutes / 60.0;
+    }
+    return 0.0;
+  }
+
+  double _computeTotalHours() {
+    return _filteredRecords.fold(0.0, (sum, rec) => sum + _computeHours(rec));
   }
 
   Widget _buildPreview() {
@@ -223,6 +245,7 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                           final dt = DateTime.parse(rec.date);
                           final dateStr = DateFormat('MMMM d, yyyy').format(dt);
                           final dayStr = DateFormat('EEEE').format(dt);
+                          final hours = _computeHours(rec);
                           return TableRow(
                             children: [
                               Padding(
@@ -236,9 +259,9 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                                   children: _parseTasksRich(rec.accomplishmentsDelta),
                                 ),
                               ),
-                              const Padding(
-                                padding: EdgeInsets.all(8),
-                                child: Text('8'),
+                              Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Text(hours > 0 ? hours.toStringAsFixed(2) : '-', style: const TextStyle()),
                               ),
                             ],
                           );
@@ -259,7 +282,7 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8),
-                              child: Text('$totalHours hours', style: const TextStyle(fontWeight: FontWeight.bold)),
+                              child: Text('${totalHours.toStringAsFixed(2)} hours', style: const TextStyle(fontWeight: FontWeight.bold)),
                             ),
                           ],
                         ),
