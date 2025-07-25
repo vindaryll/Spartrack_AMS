@@ -182,22 +182,6 @@ pw.Widget _infoRow(String label, String value, pw.Font ttf, pw.Font ttfBold) {
   );
 }
 
-// Helper to parse Quill delta to plain text for PDF
-String _parseTasksPlainText(String deltaJson) {
-  try {
-    final List<dynamic> delta = deltaJson.isNotEmpty ? List<dynamic>.from(jsonDecode(deltaJson)) : [];
-    final buffer = StringBuffer();
-    for (final op in delta) {
-      if (op is Map && op['insert'] != null) {
-        buffer.write(op['insert']);
-      }
-    }
-    return buffer.toString();
-  } catch (_) {
-    return '';
-  }
-}
-
 // Helper to compute hours for a record
 // (You may want to move this logic to a shared utils file)
 double _computeHours(AttendanceRecord rec) {

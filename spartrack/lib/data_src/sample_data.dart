@@ -38,7 +38,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-07-01',
+        date: '2025-07-01',
         timeIn: '09:00:34 AM',
         timeOut: '05:00:21 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -48,7 +48,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-30',
+        date: '2025-06-30',
         timeIn: '09:05:12 AM',
         timeOut: '05:10:45 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -58,7 +58,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-29',
+        date: '2025-06-29',
         timeIn: '09:02:18 AM',
         timeOut: '05:08:33 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -68,7 +68,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-28',
+        date: '2025-06-28',
         timeIn: '09:10:00 AM',
         timeOut: '05:00:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -78,7 +78,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-27',
+        date: '2025-06-27',
         timeIn: '09:03:45 AM',
         timeOut: '05:12:10 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -87,7 +87,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-26',
+        date: '2025-06-26',
         timeIn: '09:07:22 AM',
         timeOut: '05:09:55 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -96,7 +96,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-25',
+        date: '2025-06-25',
         timeIn: '09:11:10 AM',
         timeOut: '05:15:20 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -105,7 +105,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-24',
+        date: '2025-06-24',
         timeIn: '09:00:00 AM',
         timeOut: '05:00:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -114,7 +114,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-23',
+        date: '2025-06-23',
         timeIn: '09:05:00 AM',
         timeOut: '05:05:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -123,7 +123,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-22',
+        date: '2025-06-22',
         timeIn: '09:10:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -132,7 +132,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-21',
+        date: '2025-06-21',
         timeIn: '09:02:00 AM',
         timeOut: '05:02:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -141,7 +141,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-20',
+        date: '2025-06-20',
         timeIn: '09:08:00 AM',
         timeOut: '05:08:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -150,7 +150,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-19',
+        date: '2025-06-19',
         timeIn: '09:03:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -159,7 +159,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-18',
+        date: '2025-06-18',
         timeIn: '09:07:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -168,7 +168,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-17',
+        date: '2025-06-17',
         timeIn: '09:04:00 AM',
         timeOut: '05:04:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -177,7 +177,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-16',
+        date: '2025-06-16',
         timeIn: '09:09:00 AM',
         timeOut: '05:09:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -186,7 +186,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-15',
+        date: '2025-06-15',
         timeIn: '09:01:00 AM',
         timeOut: '05:01:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -195,7 +195,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-14',
+        date: '2025-06-14',
         timeIn: '09:06:00 AM',
         timeOut: '05:06:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -204,7 +204,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-13',
+        date: '2025-06-13',
         timeIn: '09:02:00 AM',
         timeOut: '05:02:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -213,7 +213,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-12',
+        date: '2025-06-12',
         timeIn: '09:08:00 AM',
         timeOut: '05:08:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -222,7 +222,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-11',
+        date: '2025-06-11',
         timeIn: '09:03:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -231,7 +231,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-10',
+        date: '2025-06-10',
         timeIn: '09:07:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -240,7 +240,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-09',
+        date: '2025-06-09',
         timeIn: '09:10:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -249,7 +249,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-08',
+        date: '2025-06-08',
         timeIn: '09:04:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -258,7 +258,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-07',
+        date: '2025-06-07',
         timeIn: '09:09:00 AM',
         timeOut: '05:11:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -267,7 +267,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-06',
+        date: '2025-06-06',
         timeIn: '09:13:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -276,7 +276,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-05',
+        date: '2025-06-05',
         timeIn: '09:08:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -285,7 +285,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-04',
+        date: '2025-06-04',
         timeIn: '09:02:00 AM',
         timeOut: '05:02:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -294,7 +294,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-03',
+        date: '2025-06-03',
         timeIn: '09:08:00 AM',
         timeOut: '05:08:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -303,7 +303,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-02',
+        date: '2025-06-02',
         timeIn: '09:03:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -312,7 +312,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-01',
+        date: '2025-06-01',
         timeIn: '09:07:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -321,7 +321,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-31',
+        date: '2025-05-31',
         timeIn: '09:10:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -330,7 +330,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-30',
+        date: '2025-05-30',
         timeIn: '09:04:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -339,7 +339,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-29',
+        date: '2025-05-29',
         timeIn: '09:09:00 AM',
         timeOut: '05:11:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -348,7 +348,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-28',
+        date: '2025-05-28',
         timeIn: '09:13:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -357,7 +357,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-27',
+        date: '2025-05-27',
         timeIn: '09:08:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -366,7 +366,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-26',
+        date: '2025-05-26',
         timeIn: '09:02:00 AM',
         timeOut: '05:02:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -375,7 +375,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-25',
+        date: '2025-05-25',
         timeIn: '09:08:00 AM',
         timeOut: '05:08:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -384,7 +384,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-24',
+        date: '2025-05-24',
         timeIn: '09:03:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -393,7 +393,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-23',
+        date: '2025-05-23',
         timeIn: '09:07:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -402,7 +402,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-22',
+        date: '2025-05-22',
         timeIn: '09:10:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -411,7 +411,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-21',
+        date: '2025-05-21',
         timeIn: '09:04:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -420,7 +420,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-20',
+        date: '2025-05-20',
         timeIn: '09:09:00 AM',
         timeOut: '05:11:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -429,7 +429,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-19',
+        date: '2025-05-19',
         timeIn: '09:13:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -438,7 +438,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-18',
+        date: '2025-05-18',
         timeIn: '09:08:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -447,7 +447,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-17',
+        date: '2025-05-17',
         timeIn: '09:02:00 AM',
         timeOut: '05:02:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -456,7 +456,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-16',
+        date: '2025-05-16',
         timeIn: '09:08:00 AM',
         timeOut: '05:08:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -465,7 +465,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-15',
+        date: '2025-05-15',
         timeIn: '09:03:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -474,7 +474,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-14',
+        date: '2025-05-14',
         timeIn: '09:07:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -483,7 +483,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-13',
+        date: '2025-05-13',
         timeIn: '09:10:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -492,7 +492,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-12',
+        date: '2025-05-12',
         timeIn: '09:04:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -501,7 +501,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-11',
+        date: '2025-05-11',
         timeIn: '09:09:00 AM',
         timeOut: '05:11:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -510,7 +510,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-10',
+        date: '2025-05-10',
         timeIn: '09:13:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -519,7 +519,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-09',
+        date: '2025-05-09',
         timeIn: '09:08:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -528,7 +528,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-08',
+        date: '2025-05-08',
         timeIn: '09:02:00 AM',
         timeOut: '05:02:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -537,7 +537,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-07',
+        date: '2025-05-07',
         timeIn: '09:08:00 AM',
         timeOut: '05:08:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -546,7 +546,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-06',
+        date: '2025-05-06',
         timeIn: '09:03:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -555,7 +555,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-05',
+        date: '2025-05-05',
         timeIn: '09:07:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -564,7 +564,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-04',
+        date: '2025-05-04',
         timeIn: '09:10:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -573,7 +573,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-03',
+        date: '2025-05-03',
         timeIn: '09:04:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -582,7 +582,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-02',
+        date: '2025-05-02',
         timeIn: '09:09:00 AM',
         timeOut: '05:11:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -591,7 +591,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-01',
+        date: '2025-05-01',
         timeIn: '09:13:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -633,7 +633,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-07-01',
+        date: '2025-07-01',
         timeIn: '08:55:14 AM',
         timeOut: '04:50:49 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -642,7 +642,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-30',
+        date: '2025-06-30',
         timeIn: '09:01:00 AM',
         timeOut: '05:02:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -651,7 +651,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-29',
+        date: '2025-06-29',
         timeIn: '09:03:00 AM',
         timeOut: '05:05:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -660,7 +660,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-28',
+        date: '2025-06-28',
         timeIn: '09:10:00 AM',
         timeOut: '05:00:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -669,7 +669,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-27',
+        date: '2025-06-27',
         timeIn: '09:03:45 AM',
         timeOut: '05:12:10 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -678,7 +678,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-26',
+        date: '2025-06-26',
         timeIn: '09:07:22 AM',
         timeOut: '05:09:55 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -687,7 +687,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-25',
+        date: '2025-06-25',
         timeIn: '09:11:10 AM',
         timeOut: '05:15:20 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -696,7 +696,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-24',
+        date: '2025-06-24',
         timeIn: '09:00:00 AM',
         timeOut: '05:00:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -705,7 +705,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-23',
+        date: '2025-06-23',
         timeIn: '09:05:00 AM',
         timeOut: '05:05:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -714,7 +714,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-22',
+        date: '2025-06-22',
         timeIn: '09:10:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -723,7 +723,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-21',
+        date: '2025-06-21',
         timeIn: '09:02:00 AM',
         timeOut: '05:02:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -732,7 +732,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-20',
+        date: '2025-06-20',
         timeIn: '09:08:00 AM',
         timeOut: '05:08:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -741,7 +741,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-19',
+        date: '2025-06-19',
         timeIn: '09:03:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -750,7 +750,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-18',
+        date: '2025-06-18',
         timeIn: '09:07:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -759,7 +759,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-17',
+        date: '2025-06-17',
         timeIn: '09:04:00 AM',
         timeOut: '05:04:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -768,7 +768,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-16',
+        date: '2025-06-16',
         timeIn: '09:09:00 AM',
         timeOut: '05:09:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -777,7 +777,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-15',
+        date: '2025-06-15',
         timeIn: '09:01:00 AM',
         timeOut: '05:01:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -786,7 +786,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-14',
+        date: '2025-06-14',
         timeIn: '09:06:00 AM',
         timeOut: '05:06:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -795,7 +795,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-13',
+        date: '2025-06-13',
         timeIn: '09:02:00 AM',
         timeOut: '05:02:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -804,7 +804,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-12',
+        date: '2025-06-12',
         timeIn: '09:08:00 AM',
         timeOut: '05:08:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -813,7 +813,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-11',
+        date: '2025-06-11',
         timeIn: '09:03:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -822,7 +822,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-10',
+        date: '2025-06-10',
         timeIn: '09:07:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -831,7 +831,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-09',
+        date: '2025-06-09',
         timeIn: '09:10:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -840,7 +840,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-08',
+        date: '2025-06-08',
         timeIn: '09:04:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -849,7 +849,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-07',
+        date: '2025-06-07',
         timeIn: '09:09:00 AM',
         timeOut: '05:11:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -858,7 +858,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-06',
+        date: '2025-06-06',
         timeIn: '09:13:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -867,7 +867,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-05',
+        date: '2025-06-05',
         timeIn: '09:08:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -876,7 +876,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-04',
+        date: '2025-06-04',
         timeIn: '09:02:00 AM',
         timeOut: '05:02:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -885,7 +885,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-03',
+        date: '2025-06-03',
         timeIn: '09:08:00 AM',
         timeOut: '05:08:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -894,7 +894,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-02',
+        date: '2025-06-02',
         timeIn: '09:03:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -903,7 +903,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-06-01',
+        date: '2025-06-01',
         timeIn: '09:07:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -912,7 +912,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-31',
+        date: '2025-05-31',
         timeIn: '09:10:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -921,7 +921,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-30',
+        date: '2025-05-30',
         timeIn: '09:04:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -930,7 +930,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-29',
+        date: '2025-05-29',
         timeIn: '09:09:00 AM',
         timeOut: '05:11:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -939,7 +939,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-28',
+        date: '2025-05-28',
         timeIn: '09:13:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -948,7 +948,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-27',
+        date: '2025-05-27',
         timeIn: '09:08:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -957,7 +957,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-26',
+        date: '2025-05-26',
         timeIn: '09:02:00 AM',
         timeOut: '05:02:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -966,7 +966,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-25',
+        date: '2025-05-25',
         timeIn: '09:08:00 AM',
         timeOut: '05:08:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -975,7 +975,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-24',
+        date: '2025-05-24',
         timeIn: '09:03:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -984,7 +984,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-23',
+        date: '2025-05-23',
         timeIn: '09:07:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -993,7 +993,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-22',
+        date: '2025-05-22',
         timeIn: '09:10:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1002,7 +1002,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-21',
+        date: '2025-05-21',
         timeIn: '09:04:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1011,7 +1011,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-20',
+        date: '2025-05-20',
         timeIn: '09:09:00 AM',
         timeOut: '05:11:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1020,7 +1020,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-19',
+        date: '2025-05-19',
         timeIn: '09:13:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1029,7 +1029,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-18',
+        date: '2025-05-18',
         timeIn: '09:08:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1038,7 +1038,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-17',
+        date: '2025-05-17',
         timeIn: '09:02:00 AM',
         timeOut: '05:02:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1047,7 +1047,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-16',
+        date: '2025-05-16',
         timeIn: '09:08:00 AM',
         timeOut: '05:08:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1056,7 +1056,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-15',
+        date: '2025-05-15',
         timeIn: '09:03:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1065,7 +1065,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-14',
+        date: '2025-05-14',
         timeIn: '09:07:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1074,7 +1074,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-13',
+        date: '2025-05-13',
         timeIn: '09:10:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1083,7 +1083,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-12',
+        date: '2025-05-12',
         timeIn: '09:04:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1092,7 +1092,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-11',
+        date: '2025-05-11',
         timeIn: '09:09:00 AM',
         timeOut: '05:11:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1101,7 +1101,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-10',
+        date: '2025-05-10',
         timeIn: '09:13:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1110,7 +1110,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-09',
+        date: '2025-05-09',
         timeIn: '09:08:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1119,7 +1119,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-08',
+        date: '2025-05-08',
         timeIn: '09:02:00 AM',
         timeOut: '05:02:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1128,7 +1128,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-07',
+        date: '2025-05-07',
         timeIn: '09:08:00 AM',
         timeOut: '05:08:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1137,7 +1137,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-06',
+        date: '2025-05-06',
         timeIn: '09:03:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1146,7 +1146,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-05',
+        date: '2025-05-05',
         timeIn: '09:07:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1155,7 +1155,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-04',
+        date: '2025-05-04',
         timeIn: '09:10:00 AM',
         timeOut: '05:10:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1164,7 +1164,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-03',
+        date: '2025-05-03',
         timeIn: '09:04:00 AM',
         timeOut: '05:03:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1173,7 +1173,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-02',
+        date: '2025-05-02',
         timeIn: '09:09:00 AM',
         timeOut: '05:11:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([
@@ -1182,7 +1182,7 @@ final List<User> sampleUsers = [
         ]),
       ),
       AttendanceRecord(
-        date: '2024-05-01',
+        date: '2025-05-01',
         timeIn: '09:13:00 AM',
         timeOut: '05:07:00 PM',
         accomplishmentsDelta: AttendanceRecord.richDelta([

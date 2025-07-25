@@ -10,6 +10,7 @@ import 'package:printing/printing.dart';
 import '../utils/pdf_accomplishments.dart';
 import 'dart:typed_data';
 import 'package:art_sweetalert/art_sweetalert.dart';
+import '../common/custom_text_field.dart';
 
 class AccomplishmentsTab extends StatefulWidget {
   final User? user;
@@ -22,6 +23,7 @@ class AccomplishmentsTab extends StatefulWidget {
 class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
   DateTime? _fromDate;
   DateTime? _toDate;
+  String _week = '';
   List<AttendanceRecord> _filteredRecords = [];
 
   @override
@@ -32,9 +34,12 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
 
   void _applyFilter() {
     final records = widget.user?.attendanceRecords ?? [];
+
     setState(() {
       _filteredRecords = records.where((rec) {
         final recDate = DateTime.parse(rec.date);
+        // If both dates are set and from > to, treat as no filter
+        if (_fromDate != null && _toDate != null && _fromDate!.isAfter(_toDate!)) return true;
         if (_fromDate != null && recDate.isBefore(_fromDate!)) return false;
         if (_toDate != null && recDate.isAfter(_toDate!)) return false;
         return true;
@@ -46,81 +51,175 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
   Future<void> _showFilterModal() async {
     DateTime? tempFrom = _fromDate;
     DateTime? tempTo = _toDate;
+    String tempWeek = _week;
+    final weekController = TextEditingController(text: tempWeek);
     await showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Filter Records'),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+          title: Container(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            color: AppColors.accentRed,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    const Text('From: '),
-                    TextButton(
-                      onPressed: () async {
-                        final picked = await showDatePicker(
-                          context: context,
-                          initialDate: tempFrom ?? DateTime.now(),
-                          firstDate: DateTime(2020),
-                          lastDate: DateTime(2100),
-                        );
-                        if (picked != null) setState(() => tempFrom = picked);
-                      },
-                      child: Text(tempFrom != null ? DateFormat('yyyy-MM-dd').format(tempFrom!) : 'Select'),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Text('To: '),
-                    TextButton(
-                      onPressed: () async {
-                        final picked = await showDatePicker(
-                          context: context,
-                          initialDate: tempTo ?? DateTime.now(),
-                          firstDate: DateTime(2020),
-                          lastDate: DateTime(2100),
-                        );
-                        if (picked != null) setState(() => tempTo = picked);
-                      },
-                      child: Text(tempTo != null ? DateFormat('yyyy-MM-dd').format(tempTo!) : 'Select'),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Wrap(
-                  spacing: 8,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          tempFrom = null;
-                          tempTo = null;
-                          _fromDate = null;
-                          _toDate = null;
-                        });
-                        Navigator.pop(context);
-                        _applyFilter();
-                      },
-                      child: const Text('Clear Filter'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          _fromDate = tempFrom;
-                          _toDate = tempTo;
-                        });
-                        Navigator.pop(context);
-                        _applyFilter();
-                      },
-                      child: const Text('Filter'),
-                    ),
-                  ],
+                const Text('Filter Options', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: const Icon(Icons.close, color: Colors.white),
                 ),
               ],
             ),
+          ),
+          content: StatefulBuilder(
+            builder: (context, setModalState) {
+              return SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        const Text('From:'),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: InkWell(
+                            onTap: () async {
+                              final picked = await showDatePicker(
+                                context: context,
+                                initialDate: tempFrom ?? DateTime.now(),
+                                firstDate: DateTime(2020),
+                                lastDate: DateTime(2100),
+                              );
+                              if (picked != null) setModalState(() => tempFrom = picked);
+                            },
+                            child: InputDecorator(
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                isDense: true,
+                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                              ),
+                              child: Text(
+                                tempFrom != null ? DateFormat('yyyy-MM-dd').format(tempFrom!) : '',
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.calendar_today, size: 18),
+                          onPressed: () async {
+                            final picked = await showDatePicker(
+                              context: context,
+                              initialDate: tempFrom ?? DateTime.now(),
+                              firstDate: DateTime(2020),
+                              lastDate: DateTime(2100),
+                            );
+                            if (picked != null) setModalState(() => tempFrom = picked);
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        const Text('To:'),
+                        const SizedBox(width: 24),
+                        Expanded(
+                          child: InkWell(
+                            onTap: () async {
+                              final picked = await showDatePicker(
+                                context: context,
+                                initialDate: tempTo ?? DateTime.now(),
+                                firstDate: DateTime(2020),
+                                lastDate: DateTime(2100),
+                              );
+                              if (picked != null) setModalState(() => tempTo = picked);
+                            },
+                            child: InputDecorator(
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                isDense: true,
+                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                              ),
+                              child: Text(
+                                tempTo != null ? DateFormat('yyyy-MM-dd').format(tempTo!) : '',
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.calendar_today, size: 18),
+                          onPressed: () async {
+                            final picked = await showDatePicker(
+                              context: context,
+                              initialDate: tempTo ?? DateTime.now(),
+                              firstDate: DateTime(2020),
+                              lastDate: DateTime(2100),
+                            );
+                            if (picked != null) setModalState(() => tempTo = picked);
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    CustomTextField(
+                      label: 'Week:',
+                      placeholder: 'e.g: 4',
+                      controller: weekController,
+                      onChanged: (val) => tempWeek = val,
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.fieldGray,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                tempFrom = null;
+                                tempTo = null;
+                                tempWeek = '';
+                                _fromDate = null;
+                                _toDate = null;
+                                _week = '';
+                              });
+                              Navigator.pop(context);
+                              _applyFilter();
+                            },
+                            child: const Text('Clear'),
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.infoBlue,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _fromDate = tempFrom;
+                                _toDate = tempTo;
+                                _week = weekController.text.trim();
+                              });
+                              Navigator.pop(context);
+                              _applyFilter();
+                            },
+                            child: const Text('Apply'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
         );
       },
@@ -160,6 +259,7 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
     final coordinator = user.collegeCoordinator;
     final records = _filteredRecords;
     final totalHours = _computeTotalHours();
+    final weekLabel = _week.isNotEmpty ? _week : '_';
     const double previewWidth = 900;
     return Center(
       child: Container(
@@ -209,10 +309,17 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                   ),
                 ),
                 // put the week number here
-                const Center(
-                  child: Text('Week 4', style: TextStyle(fontWeight: FontWeight.bold)),
+                Center(
+                  child: Text('Week $weekLabel', style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
                 const SizedBox(height: 16),
+                if (records.isEmpty)
+                  const Padding(
+                    padding: EdgeInsets.all(24.0),
+                    child: Center(
+                      child: Text('No records found for the selected filter.', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+                    ),
+                  ),
                 // Table (scrollable horizontally only)
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -656,7 +763,7 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                         user: widget.user!,
                         records: _filteredRecords,
                         totalHours: _computeTotalHours(),
-                        weekLabel: 'Week 4',
+                        weekLabel: 'Week ' + (_week.isNotEmpty ? _week : '_'),
                       );
                       await Printing.sharePdf(bytes: Uint8List.fromList(pdfBytes), filename: 'accomplishments_${widget.user?.fullName}.pdf');
                       // Show success SweetAlert
