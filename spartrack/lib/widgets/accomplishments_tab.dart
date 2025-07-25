@@ -49,177 +49,212 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
   }
 
   Future<void> _showFilterModal() async {
-    DateTime? tempFrom = _fromDate;
-    DateTime? tempTo = _toDate;
-    String tempWeek = _week;
-    final weekController = TextEditingController(text: tempWeek);
     await showDialog(
       context: context,
+      barrierColor: Colors.black54,
       builder: (context) {
-        return AlertDialog(
-          title: Container(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-            color: AppColors.accentRed,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        DateTime? tempFrom = _fromDate;
+        DateTime? tempTo = _toDate;
+        String tempWeek = _week;
+        final weekController = TextEditingController(text: tempWeek);
+        final fromController = TextEditingController(text: tempFrom != null ? DateFormat('yyyy-MM-dd').format(tempFrom) : '');
+        final toController = TextEditingController(text: tempTo != null ? DateFormat('yyyy-MM-dd').format(tempTo) : '');
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: const EdgeInsets.all(24),
+          child: Container(
+            width: 284,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: const Color(0xFF4A4A4A), width: 0.5),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                const Text('Filter Options', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: const Icon(Icons.close, color: Colors.white),
+                // Header
+                Container(
+                  height: 31,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFB20000),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
+                    ),
+                    border: Border(
+                      bottom: BorderSide(color: Color(0xFF4A4A4A), width: 0.5),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(left: 16.0),
+                        child: Text(
+                          'Filter Options',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                            color: Colors.white,
+                            letterSpacing: 0.07,
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close, color: Colors.white, size: 20),
+                        onPressed: () => Navigator.pop(context),
+                        splashRadius: 18,
+                        padding: const EdgeInsets.only(right: 8),
+                        constraints: const BoxConstraints(),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+                  child: StatefulBuilder(
+                    builder: (context, setModalState) {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // From
+                          Stack(
+                            alignment: Alignment.centerRight,
+                            children: [
+                              GestureDetector(
+                                onTap: () async {
+                                  final picked = await showDatePicker(
+                                    context: context,
+                                    initialDate: tempFrom ?? DateTime.now(),
+                                    firstDate: DateTime(2020),
+                                    lastDate: DateTime(2100),
+                                  );
+                                  if (picked != null) {
+                                    setModalState(() {
+                                      tempFrom = picked;
+                                      fromController.text = DateFormat('yyyy-MM-dd').format(picked);
+                                    });
+                                  }
+                                },
+                                child: AbsorbPointer(
+                                  child: CustomTextField(
+                                    label: 'From:',
+                                    placeholder: 'Select date',
+                                    controller: fromController,
+                                    enabled: false,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Icon(Icons.calendar_today, size: 17, color: Color(0xFF4A4A4A)),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          // To
+                          Stack(
+                            alignment: Alignment.centerRight,
+                            children: [
+                              GestureDetector(
+                                onTap: () async {
+                                  final picked = await showDatePicker(
+                                    context: context,
+                                    initialDate: tempTo ?? DateTime.now(),
+                                    firstDate: DateTime(2020),
+                                    lastDate: DateTime(2100),
+                                  );
+                                  if (picked != null) {
+                                    setModalState(() {
+                                      tempTo = picked;
+                                      toController.text = DateFormat('yyyy-MM-dd').format(picked);
+                                    });
+                                  }
+                                },
+                                child: AbsorbPointer(
+                                  child: CustomTextField(
+                                    label: 'To:',
+                                    placeholder: 'Select date',
+                                    controller: toController,
+                                    enabled: false,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Icon(Icons.calendar_today, size: 17, color: Color(0xFF4A4A4A)),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          // Week
+                          CustomTextField(
+                            label: 'Week:',
+                            placeholder: 'e.g: 4',
+                            controller: weekController,
+                            onChanged: (val) => tempWeek = val,
+                            enabled: true,
+                          ),
+                          const SizedBox(height: 18),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xFF6C757D),
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                                    elevation: 2,
+                                    minimumSize: const Size(0, 36),
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      tempFrom = null;
+                                      tempTo = null;
+                                      tempWeek = '';
+                                      _fromDate = null;
+                                      _toDate = null;
+                                      _week = '';
+                                    });
+                                    Navigator.pop(context);
+                                    _applyFilter();
+                                  },
+                                  child: const Text('Clear', style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w600, fontSize: 12, letterSpacing: 0.07)),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xFF007BFF),
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                                    elevation: 2,
+                                    minimumSize: const Size(0, 36),
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _fromDate = tempFrom;
+                                      _toDate = tempTo;
+                                      _week = weekController.text.trim();
+                                    });
+                                    Navigator.pop(context);
+                                    _applyFilter();
+                                  },
+                                  child: const Text('Apply', style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w600, fontSize: 12, letterSpacing: 0.07)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
-          ),
-          content: StatefulBuilder(
-            builder: (context, setModalState) {
-              return SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      children: [
-                        const Text('From:'),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: InkWell(
-                            onTap: () async {
-                              final picked = await showDatePicker(
-                                context: context,
-                                initialDate: tempFrom ?? DateTime.now(),
-                                firstDate: DateTime(2020),
-                                lastDate: DateTime(2100),
-                              );
-                              if (picked != null) setModalState(() => tempFrom = picked);
-                            },
-                            child: InputDecorator(
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                isDense: true,
-                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                              ),
-                              child: Text(
-                                tempFrom != null ? DateFormat('yyyy-MM-dd').format(tempFrom!) : '',
-                                style: const TextStyle(fontSize: 14),
-                              ),
-                            ),
-                          ),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.calendar_today, size: 18),
-                          onPressed: () async {
-                            final picked = await showDatePicker(
-                              context: context,
-                              initialDate: tempFrom ?? DateTime.now(),
-                              firstDate: DateTime(2020),
-                              lastDate: DateTime(2100),
-                            );
-                            if (picked != null) setModalState(() => tempFrom = picked);
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        const Text('To:'),
-                        const SizedBox(width: 24),
-                        Expanded(
-                          child: InkWell(
-                            onTap: () async {
-                              final picked = await showDatePicker(
-                                context: context,
-                                initialDate: tempTo ?? DateTime.now(),
-                                firstDate: DateTime(2020),
-                                lastDate: DateTime(2100),
-                              );
-                              if (picked != null) setModalState(() => tempTo = picked);
-                            },
-                            child: InputDecorator(
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                isDense: true,
-                                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                              ),
-                              child: Text(
-                                tempTo != null ? DateFormat('yyyy-MM-dd').format(tempTo!) : '',
-                                style: const TextStyle(fontSize: 14),
-                              ),
-                            ),
-                          ),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.calendar_today, size: 18),
-                          onPressed: () async {
-                            final picked = await showDatePicker(
-                              context: context,
-                              initialDate: tempTo ?? DateTime.now(),
-                              firstDate: DateTime(2020),
-                              lastDate: DateTime(2100),
-                            );
-                            if (picked != null) setModalState(() => tempTo = picked);
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    CustomTextField(
-                      label: 'Week:',
-                      placeholder: 'e.g: 4',
-                      controller: weekController,
-                      onChanged: (val) => tempWeek = val,
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.fieldGray,
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                tempFrom = null;
-                                tempTo = null;
-                                tempWeek = '';
-                                _fromDate = null;
-                                _toDate = null;
-                                _week = '';
-                              });
-                              Navigator.pop(context);
-                              _applyFilter();
-                            },
-                            child: const Text('Clear'),
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.infoBlue,
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _fromDate = tempFrom;
-                                _toDate = tempTo;
-                                _week = weekController.text.trim();
-                              });
-                              Navigator.pop(context);
-                              _applyFilter();
-                            },
-                            child: const Text('Apply'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            },
           ),
         );
       },
