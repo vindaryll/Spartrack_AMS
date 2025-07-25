@@ -7,6 +7,7 @@ import '../utils/app_colors.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import '../models/attendance_record.dart';
+import 'package:art_sweetalert/art_sweetalert.dart';
 
 class AttendanceTab extends StatefulWidget {
   final User user;
@@ -47,40 +48,66 @@ class _AttendanceTabState extends State<AttendanceTab> {
     return time ?? '--:--:-- --';
   }
 
-  void _handleTimeIn() {
-    final now = DateTime.now();
-    final today = DateFormat('yyyy-MM-dd').format(now);
-    final timeStr = DateFormat('hh:mm:ss a').format(now);
-    setState(() {
-      AttendanceRecord? todayRec = widget.user.attendanceRecords?.firstWhere(
-        (rec) => rec.date == today,
-        orElse: () => AttendanceRecord(date: today, timeIn: null, timeOut: null, accomplishmentsDelta: ''),
-      );
-      if (todayRec == null) {
-        todayRec = AttendanceRecord(date: today, timeIn: timeStr, timeOut: null, accomplishmentsDelta: '');
-        widget.user.attendanceRecords?.add(todayRec);
-      } else {
-        // Update timeIn if not set
-        if (todayRec.timeIn == null || todayRec.timeIn!.isEmpty) {
-          todayRec.timeIn = timeStr;
+  void _handleTimeIn() async {
+    final now = DateTime.now(); 
+    final result = await ArtSweetAlert.show(
+      context: context,
+      artDialogArgs: ArtDialogArgs(
+        type: ArtSweetAlertType.question,
+        title: "Time In",
+        text: "Are you sure you want to time in?",
+        showCancelBtn: true,
+        confirmButtonText: "Confirm",
+        cancelButtonText: "Cancel",
+      ),
+    );
+    if (result != null && result.isTapConfirmButton) {
+      final today = DateFormat('yyyy-MM-dd').format(now);
+      final timeStr = DateFormat('hh:mm:ss a').format(now);
+      setState(() {
+        AttendanceRecord? todayRec = widget.user.attendanceRecords?.firstWhere(
+          (rec) => rec.date == today,
+          orElse: () => AttendanceRecord(date: today, timeIn: null, timeOut: null, accomplishmentsDelta: ''),
+        );
+        if (todayRec == null) {
+          todayRec = AttendanceRecord(date: today, timeIn: timeStr, timeOut: null, accomplishmentsDelta: '');
+          widget.user.attendanceRecords?.add(todayRec);
+        } else {
+          // Update timeIn if not set
+          if (todayRec.timeIn == null || todayRec.timeIn!.isEmpty) {
+            todayRec.timeIn = timeStr;
+          }
         }
-      }
-    });
+      });
+    }
   }
 
-  void _handleTimeOut() {
-    final now = DateTime.now();
-    final today = DateFormat('yyyy-MM-dd').format(now);
-    final timeStr = DateFormat('hh:mm:ss a').format(now);
-    setState(() {
-      AttendanceRecord? todayRec = widget.user.attendanceRecords?.firstWhere(
-        (rec) => rec.date == today,
-        orElse: () => AttendanceRecord(date: today, timeIn: null, timeOut: null, accomplishmentsDelta: ''),
-      );
-      if (todayRec != null) {
-        todayRec.timeOut = timeStr;
-      }
-    });
+  void _handleTimeOut() async {
+    final now = DateTime.now(); 
+    final result = await ArtSweetAlert.show(
+      context: context,
+      artDialogArgs: ArtDialogArgs(
+        type: ArtSweetAlertType.question,
+        title: "Time Out",
+        text: "Are you sure you want to time out?",
+        showCancelBtn: true,
+        confirmButtonText: "Confirm",
+        cancelButtonText: "Cancel",
+      ),
+    );
+    if (result != null && result.isTapConfirmButton) {
+      final today = DateFormat('yyyy-MM-dd').format(now);
+      final timeStr = DateFormat('hh:mm:ss a').format(now);
+      setState(() {
+        AttendanceRecord? todayRec = widget.user.attendanceRecords?.firstWhere(
+          (rec) => rec.date == today,
+          orElse: () => AttendanceRecord(date: today, timeIn: null, timeOut: null, accomplishmentsDelta: ''),
+        );
+        if (todayRec != null) {
+          todayRec.timeOut = timeStr;
+        }
+      });
+    }
   }
 
   void _handleSaveAccomplishments() {

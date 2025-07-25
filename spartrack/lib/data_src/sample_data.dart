@@ -31,7 +31,7 @@ final List<User> sampleUsers = [
     attendanceRecords: [
       AttendanceRecord(
         date: today,
-        timeIn: '09:30:00 AM',
+        timeIn: '07:00:00 AM',
         timeOut: null,
         accomplishmentsDelta: AttendanceRecord.richDelta([
           {'text': 'Simulated today\'s attendance for user.', 'list': 'bullet'},
