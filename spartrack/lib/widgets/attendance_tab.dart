@@ -119,6 +119,7 @@ class _AttendanceTabState extends State<AttendanceTab> {
       );
     }
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         // Time In/Out Buttons
         Row(
@@ -130,7 +131,7 @@ class _AttendanceTabState extends State<AttendanceTab> {
                 onPressed: (!hasTimeIn && !hasTimeOut) ? _handleTimeIn : null,
               ),
             ),
-            const SizedBox(width: 8),
+            const SizedBox(width: 16),
             Expanded(
               child: TimeActionButton(
                 isTimeIn: false,
@@ -140,10 +141,10 @@ class _AttendanceTabState extends State<AttendanceTab> {
             ),
           ],
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 24),
         // Time In/Out Labels - Left aligned with time values
         Padding(
-          padding: const EdgeInsets.only(left: 16.0),
+          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
           child: Row(
             children: [
               Expanded(
@@ -151,14 +152,14 @@ class _AttendanceTabState extends State<AttendanceTab> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Time in:  ${_formatTime(todayAttendance?.timeIn)}',
+                      'Time in: ${_formatTime(todayAttendance?.timeIn)}',
                       style: AppColors.captionStyle.copyWith(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
                         color: AppColors.black,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 12),
                     Text(
                       'Time out: ${_formatTime(todayAttendance?.timeOut)}',
                       style: AppColors.captionStyle.copyWith(
@@ -173,25 +174,25 @@ class _AttendanceTabState extends State<AttendanceTab> {
             ],
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 20),
         // Accomplishments Info Box
         Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
             color: AppColors.yellowHint,
             borderRadius: BorderRadius.circular(3),
           ),
           child: Row(
             children: [
-              const Icon(Icons.lightbulb_outline, size: 18, color: AppColors.black),
-              const SizedBox(width: 8),
+              const Icon(Icons.lightbulb_outline, size: 20, color: AppColors.black),
+              const SizedBox(width: 12),
               Expanded(
                 child: Text(
                   'Write your tasks/accomplishment below. Accomplishment/task updating is allowed anytime within the day after time-in.',
                   style: AppColors.captionStyle.copyWith(
                     fontFamily: 'Inter',
-                    fontSize: 12,
+                    fontSize: 13,
                     color: AppColors.black,
                   ),
                 ),
@@ -199,17 +200,17 @@ class _AttendanceTabState extends State<AttendanceTab> {
             ],
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 24),
         // Accomplishments Rich Text Editor
         Text(
           'Accomplishments for the day',
           style: AppColors.bodyStyle.copyWith(
             fontWeight: FontWeight.w500,
-            fontSize: 13,
+            fontSize: 14,
             color: AppColors.black,
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 12),
         Container(
           decoration: BoxDecoration(
             color: AppColors.fieldGray,
@@ -221,7 +222,7 @@ class _AttendanceTabState extends State<AttendanceTab> {
             height: 180,
           ),
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 32),
         // Save Accomplishments Button
         SaveButton(
           label: 'Save Accomplishments',

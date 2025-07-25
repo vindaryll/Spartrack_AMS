@@ -8,6 +8,7 @@ import '../widgets/progress_dashboard_tab.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/bottom_navigation_bar.dart';
 import '../common/brand_app_bar.dart';
+import '../utils/app_colors.dart';
 
 class DashboardPage extends StatefulWidget {
   final User user;
@@ -36,6 +37,19 @@ class _DashboardPageState extends State<DashboardPage> {
         return const ProgressDashboardTab();
       default:
         return AttendanceTab(user: widget.user);
+    }
+  }
+
+  String _getTabHeader() {
+    switch (_selectedTabIndex) {
+      case 0:
+        return 'ATTENDANCE';
+      case 1:
+        return 'ACCOMPLISHMENT RECORDS';
+      case 2:
+        return 'PROGRESS DASHBOARD';
+      default:
+        return '';
     }
   }
 
@@ -68,8 +82,56 @@ class _DashboardPageState extends State<DashboardPage> {
                       // Profile Card
                       ProfileCard(user: widget.user),
                       const SizedBox(height: 16),
-                      // Current Tab Content
-                      _getCurrentTab(),
+                      // Main Tab Container with dynamic header
+                      Container(
+                        width: 394,
+                        margin: const EdgeInsets.only(left: 9, top: 8, bottom: 8),
+                        decoration: BoxDecoration(
+                          color: AppColors.white,
+                          border: Border.all(color: AppColors.borderGray, width: 0.5),
+                          borderRadius: BorderRadius.circular(5),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.shadowDark.withOpacity(0.15),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Container(
+                              height: 41.65,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: AppColors.accentRed,
+                                border: Border.all(color: AppColors.borderGray, width: 0.5),
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(3),
+                                  topRight: Radius.circular(3),
+                                ),
+                              ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                _getTabHeader(),
+                                style: const TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 20,
+                                  height: 1.1,
+                                  color: Colors.white,
+                                  letterSpacing: 0.07,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+                              child: _getCurrentTab(),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),

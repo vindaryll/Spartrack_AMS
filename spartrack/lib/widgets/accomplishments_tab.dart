@@ -628,15 +628,6 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header
-          Text(
-            'Accomplishments & RLE Records',
-            style: AppColors.headingStyle.copyWith(
-              fontSize: 24,
-              color: AppColors.black,
-            ),
-          ),
-          const SizedBox(height: 16),
           // Top Row: Filter and Print
           Container(
             width: double.infinity,

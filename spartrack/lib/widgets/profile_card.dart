@@ -9,7 +9,8 @@ class ProfileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 1),
+      width: 394, 
+      margin: const EdgeInsets.only(left: 9, top: 0, bottom: 16), 
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(5),
