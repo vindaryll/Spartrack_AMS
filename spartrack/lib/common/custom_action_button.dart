@@ -153,7 +153,7 @@ class TimeActionButton extends StatelessWidget {
     final IconData effectiveIcon = isDisabled
         ? Icons.access_time_outlined // Disabled icon
         : (isTimeIn ? Icons.access_time : Icons.access_time_filled);
-    final String effectiveLabel = isDisabled ? 'TIME IN' : (isTimeIn ? 'TIME IN' : 'TIME OUT');
+    final String effectiveLabel = isTimeIn ? 'TIME IN' : 'TIME OUT';
     final Color effectiveText = isDisabled
         ? AppColors.darkGray
         : (isTimeIn ? AppColors.white : AppColors.white);
