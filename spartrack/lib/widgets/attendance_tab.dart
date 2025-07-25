@@ -253,7 +253,32 @@ class _AttendanceTabState extends State<AttendanceTab> {
         // Save Accomplishments Button
         SaveButton(
           label: 'Save Accomplishments',
-          onPressed: _handleSaveAccomplishments,
+          onPressed: () async {
+            try {
+              _handleSaveAccomplishments();
+              if (context.mounted) {
+                ArtSweetAlert.show(
+                  context: context,
+                  artDialogArgs: ArtDialogArgs(
+                    type: ArtSweetAlertType.success,
+                    title: "Saved!",
+                    text: "Accomplishments for the day have been saved successfully.",
+                  ),
+                );
+              }
+            } catch (e) {
+              if (context.mounted) {
+                ArtSweetAlert.show(
+                  context: context,
+                  artDialogArgs: ArtDialogArgs(
+                    type: ArtSweetAlertType.danger,
+                    title: "Save Failed",
+                    text: "An error occurred while saving accomplishments: \n"+e.toString(),
+                  ),
+                );
+              }
+            }
+          },
         ),
       ],
     );

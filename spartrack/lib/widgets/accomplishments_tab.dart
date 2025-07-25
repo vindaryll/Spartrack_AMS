@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:printing/printing.dart';
 import '../utils/pdf_accomplishments.dart';
 import 'dart:typed_data';
+import 'package:art_sweetalert/art_sweetalert.dart';
 
 class AccomplishmentsTab extends StatefulWidget {
   final User? user;
@@ -650,13 +651,38 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                 ElevatedButton.icon(
                   onPressed: () async {
                     if (widget.user == null) return;
-                    final pdfBytes = await generateAccomplishmentsPdf(
-                      user: widget.user!,
-                      records: _filteredRecords,
-                      totalHours: _computeTotalHours(),
-                      weekLabel: 'Week 4',
-                    );
-                    await Printing.sharePdf(bytes: Uint8List.fromList(pdfBytes), filename: 'accomplishments_${widget.user?.fullName}.pdf');
+                    try {
+                      final pdfBytes = await generateAccomplishmentsPdf(
+                        user: widget.user!,
+                        records: _filteredRecords,
+                        totalHours: _computeTotalHours(),
+                        weekLabel: 'Week 4',
+                      );
+                      await Printing.sharePdf(bytes: Uint8List.fromList(pdfBytes), filename: 'accomplishments_${widget.user?.fullName}.pdf');
+                      // Show success SweetAlert
+                      if (context.mounted) {
+                        ArtSweetAlert.show(
+                          context: context,
+                          artDialogArgs: ArtDialogArgs(
+                            type: ArtSweetAlertType.success,
+                            title: "Print Successful!",
+                            text: "The accomplishments PDF was generated and shared successfully.",
+                          ),
+                        );
+                      }
+                    } catch (e) {
+                      // Show error SweetAlert
+                      if (context.mounted) {
+                        ArtSweetAlert.show(
+                          context: context,
+                          artDialogArgs: ArtDialogArgs(
+                            type: ArtSweetAlertType.danger,
+                            title: "Print Failed",
+                            text: "An error occurred while generating or sharing the PDF: \n"+e.toString(),
+                          ),
+                        );
+                      }
+                    }
                   },
                   icon: const Icon(Icons.print),
                   label: const Text('Print'),

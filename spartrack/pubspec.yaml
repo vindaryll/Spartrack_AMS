@@ -96,6 +96,12 @@ flutter:
       fonts:
         - asset: assets/fonts/Poppins-Regular.ttf
           weight: 400
+    - family: NotoSans
+      fonts:
+        - asset: assets/fonts/NotoSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/NotoSans-Medium.ttf
+          weight: 500
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
