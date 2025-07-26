@@ -85,7 +85,7 @@ class AppDrawer extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        '${user.username}@example.com', // You can add email field to User model later
+                        user.email,
                         style: const TextStyle(
                           color: Colors.white70,
                           fontFamily: 'Poppins',
