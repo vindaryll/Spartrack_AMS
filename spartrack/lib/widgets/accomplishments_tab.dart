@@ -12,6 +12,7 @@ import 'dart:typed_data';
 import 'package:art_sweetalert/art_sweetalert.dart';
 import '../common/custom_text_field.dart';
 import '../common/custom_date_input.dart';
+import '../common/custom_buttons.dart';
 
 class AccomplishmentsTab extends StatefulWidget {
   final User? user;
@@ -158,14 +159,9 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                           Row(
                             children: [
                               Expanded(
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFF6C757D),
-                                    foregroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                                    elevation: 2,
-                                    minimumSize: const Size(0, 36),
-                                  ),
+                                child: ModalButton(
+                                  label: 'Clear',
+                                  backgroundColor: const Color(0xFF6C757D),
                                   onPressed: () {
                                     setState(() {
                                       tempFrom = null;
@@ -178,19 +174,17 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                                     Navigator.pop(context);
                                     _applyFilter();
                                   },
-                                  child: const Text('Clear', style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w600, fontSize: 12, letterSpacing: 0.07)),
+                                  borderRadius: 15,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  hasShadow: false,
                                 ),
                               ),
                               const SizedBox(width: 16),
                               Expanded(
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFF007BFF),
-                                    foregroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                                    elevation: 2,
-                                    minimumSize: const Size(0, 36),
-                                  ),
+                                child: ModalButton(
+                                  label: 'Apply',
+                                  backgroundColor: const Color(0xFF007BFF),
                                   onPressed: () {
                                     setState(() {
                                       _fromDate = tempFrom;
@@ -200,7 +194,10 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                                     Navigator.pop(context);
                                     _applyFilter();
                                   },
-                                  child: const Text('Apply', style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w600, fontSize: 12, letterSpacing: 0.07)),
+                                  borderRadius: 15,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  hasShadow: false,
                                 ),
                               ),
                             ],
@@ -731,23 +728,19 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
           // Top Row: Filter and Print
           Container(
             width: double.infinity,
-            alignment: Alignment.centerRight,
-            child: Wrap(
-              spacing: 12,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ElevatedButton.icon(
+                CustomIconButton(
+                  text: 'Filter',
+                  icon: Icons.filter_alt,
                   onPressed: _showFilterModal,
-                  icon: const Icon(Icons.filter_alt),
-                  label: const Text('Filter'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.infoBlue,
-                    foregroundColor: AppColors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
+                  backgroundColor: AppColors.filterButtonBlue,
                 ),
-                ElevatedButton.icon(
+                CustomIconButton(
+                  text: 'Print',
+                  icon: Icons.print,
                   onPressed: () async {
                     if (widget.user == null) return;
                     try {
@@ -783,15 +776,7 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                       }
                     }
                   },
-                  icon: const Icon(Icons.print),
-                  label: const Text('Print'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.successGreen,
-                    foregroundColor: AppColors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
+                  backgroundColor: AppColors.printButtonGreen,
                 ),
               ],
             ),

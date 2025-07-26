@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../utils/app_colors.dart';
-import '../common/custom_button.dart';
+import '../common/custom_buttons.dart';
 import '../common/custom_text_field.dart';
 import '../common/logo_widget.dart';
 import 'package:art_sweetalert/art_sweetalert.dart';

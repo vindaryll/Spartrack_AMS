@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import '../common/wysiwyg_editor.dart';
-import '../common/custom_action_button.dart';
+import '../common/custom_buttons.dart';
 import '../models/user.dart';
 import '../utils/app_colors.dart';
 import 'package:intl/intl.dart';

@@ -18,6 +18,10 @@ class AppColors {
   static const Color yellowHint = Color(0xFFFFF6BB); // Accomplishments info box
   static const Color white = Colors.white;
   static const Color black = Colors.black;
+  
+  // Figma Design Colors
+  static const Color filterButtonBlue = Color(0xFF007BFF); // Filter button blue from Figma
+  static const Color printButtonGreen = Color(0xFF00B715); // Print button green from Figma
 
   // Poppins Text Styles
   static const TextStyle headingStyle = TextStyle(

@@ -174,4 +174,144 @@ class TimeActionButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4), // Assuming a default padding for TimeActionButton
     );
   }
+}
+
+// CustomIconButton class for print and filter buttons
+class CustomIconButton extends StatelessWidget {
+  final String text;
+  final IconData icon;
+  final VoidCallback onPressed;
+  final Color backgroundColor;
+  final Color? textColor;
+  final Color? iconColor;
+  final double? width;
+  final double? height;
+  final double borderRadius;
+  final bool isLoading;
+
+  const CustomIconButton({
+    super.key,
+    required this.text,
+    required this.icon,
+    required this.onPressed,
+    required this.backgroundColor,
+    this.textColor,
+    this.iconColor,
+    this.width,
+    this.height,
+    this.borderRadius = 15,
+    this.isLoading = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomActionButton(
+      backgroundColor: backgroundColor,
+      icon: isLoading ? Icons.hourglass_empty : icon,
+      label: text,
+      onPressed: isLoading ? null : onPressed,
+      width: width ?? 108,
+      height: height ?? 23,
+      borderRadius: borderRadius,
+      hasShadow: true,
+      iconColor: iconColor ?? Colors.white,
+      textColor: textColor ?? Colors.white,
+      fontSize: 15,
+      fontWeight: FontWeight.w600,
+      iconSize: 14.8,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+    );
+  }
+}
+
+// CustomButton class for full-width buttons with loading states
+class CustomButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+  final bool isLoading;
+
+  const CustomButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+    this.isLoading = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 50,
+      child: ElevatedButton(
+        onPressed: isLoading ? null : onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primaryRed,
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        child: isLoading
+            ? const SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              )
+            : Text(
+                text,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+      ),
+    );
+  }
+}
+
+// ModalButton: For modal action buttons (e.g., Clear, Apply)
+class ModalButton extends StatelessWidget {
+  final String label;
+  final VoidCallback onPressed;
+  final Color backgroundColor;
+  final Color textColor;
+  final double borderRadius;
+  final double fontSize;
+  final FontWeight fontWeight;
+  final bool hasShadow;
+  final EdgeInsetsGeometry? padding;
+
+  const ModalButton({
+    super.key,
+    required this.label,
+    required this.onPressed,
+    required this.backgroundColor,
+    this.textColor = Colors.white,
+    this.borderRadius = 15,
+    this.fontSize = 12,
+    this.fontWeight = FontWeight.w600,
+    this.hasShadow = false,
+    this.padding,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomActionButton(
+      backgroundColor: backgroundColor,
+      icon: Icons.circle, // hidden icon
+      iconColor: Colors.transparent,
+      iconSize: 0.01, // effectively hides the icon
+      label: label,
+      onPressed: onPressed,
+      borderRadius: borderRadius,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      textColor: textColor,
+      hasShadow: hasShadow,
+      padding: padding ?? const EdgeInsets.symmetric(vertical: 4),
+    );
+  }
 } 
