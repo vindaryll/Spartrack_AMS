@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'dart:convert';
 import '../models/attendance_record.dart';
 import '../common/sweet_alert_helper.dart';
+import '../utils/time_utils.dart';
 
 class AttendanceTab extends StatefulWidget {
   final User user;
@@ -42,10 +43,6 @@ class _AttendanceTabState extends State<AttendanceTab> {
   void dispose() {
     _quillController.dispose();
     super.dispose();
-  }
-
-  String _formatTime(String? time) {
-    return time ?? '--:--:-- --';
   }
 
   void _handleTimeIn() async {
@@ -189,7 +186,7 @@ class _AttendanceTabState extends State<AttendanceTab> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Time in: ${_formatTime(todayAttendance?.timeIn)}',
+                      'Time in: ${TimeUtils.formatTime(todayAttendance?.timeIn)}',
                       style: AppColors.captionStyle.copyWith(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
@@ -198,7 +195,7 @@ class _AttendanceTabState extends State<AttendanceTab> {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      'Time out: ${_formatTime(todayAttendance?.timeOut)}',
+                      'Time out: ${TimeUtils.formatTime(todayAttendance?.timeOut)}',
                       style: AppColors.captionStyle.copyWith(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,

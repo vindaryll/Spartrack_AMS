@@ -5,6 +5,7 @@ import '../models/user.dart';
 import '../models/attendance_record.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import '../utils/time_utils.dart';
 
 Future<List<int>> generateAccomplishmentsPdf({
   required User user,
@@ -84,7 +85,7 @@ Future<List<int>> generateAccomplishmentsPdf({
               final dt = DateTime.parse(rec.date);
               final dateStr = DateFormat('MMMM d, yyyy').format(dt);
               final dayStr = DateFormat('EEEE').format(dt);
-              final hours = _computeHours(rec);
+              final hours = TimeUtils.computeHours(rec);
               final tasksWidgets = _parseTasksPdf(rec.accomplishmentsDelta, ttf);
               return pw.TableRow(
                 children: [
@@ -180,26 +181,6 @@ pw.Widget _infoRow(String label, String value, pw.Font ttf, pw.Font ttfBold) {
       ],
     ),
   );
-}
-
-// Helper to compute hours for a record
-// (You may want to move this logic to a shared utils file)
-double _computeHours(AttendanceRecord rec) {
-  DateTime? parseTime(String date, String? time) {
-    if (time == null) return null;
-    try {
-      return DateFormat('yyyy-MM-dd hh:mm:ss a').parse('$date $time');
-    } catch (_) {
-      return null;
-    }
-  }
-  final inTime = parseTime(rec.date, rec.timeIn);
-  final outTime = parseTime(rec.date, rec.timeOut);
-  if (inTime != null && outTime != null && outTime.isAfter(inTime)) {
-    final diff = outTime.difference(inTime);
-    return diff.inMinutes / 60.0;
-  }
-  return 0.0;
 }
 
 // Add this function to parse Quill delta for PDF rendering

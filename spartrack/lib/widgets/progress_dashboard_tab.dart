@@ -1,48 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../utils/app_colors.dart';
 import '../models/user.dart';
+import '../utils/time_utils.dart';
 
 class ProgressDashboardTab extends StatelessWidget {
   final User? user;
   
   const ProgressDashboardTab({super.key, this.user});
 
-  // Calculate completed hours from attendance records
-  double _calculateCompletedHours() {
-    if (user?.attendanceRecords == null) return 0.0;
-    
-    double totalHours = 0.0;
-    for (final record in user!.attendanceRecords!) {
-      if (record.timeIn != null && record.timeOut != null) {
-        try {
-          final inTime = _parseTime(record.date, record.timeIn);
-          final outTime = _parseTime(record.date, record.timeOut);
-          if (inTime != null && outTime != null && outTime.isAfter(inTime)) {
-            final diff = outTime.difference(inTime);
-            totalHours += diff.inMinutes / 60.0;
-          }
-        } catch (e) {
-          // Skip invalid records
-        }
-      }
-    }
-    return totalHours;
-  }
-
-  // Helper to parse time string
-  DateTime? _parseTime(String date, String? time) {
-    if (time == null) return null;
-    try {
-      return DateFormat('yyyy-MM-dd hh:mm:ss a').parse('$date $time');
-    } catch (_) {
-      return null;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    final completedHours = _calculateCompletedHours();
+    final completedHours = TimeUtils.calculateCompletedHours(user?.attendanceRecords);
     final requiredHours = user?.requiredNoHours ?? 600;
     final remainingHours = (requiredHours - completedHours).clamp(0.0, double.infinity);
     final progressPercentage = (completedHours / requiredHours * 100).clamp(0.0, 100.0);

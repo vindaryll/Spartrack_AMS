@@ -7,12 +7,13 @@ import '../models/attendance_record.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:printing/printing.dart';
-import '../utils/pdf_accomplishments.dart';
+import '../services/pdf_accomplishments.dart';
 import 'dart:typed_data';
 import '../common/sweet_alert_helper.dart';
 import '../common/custom_text_field.dart';
 import '../common/custom_date_input.dart';
 import '../common/custom_buttons.dart';
+import '../utils/time_utils.dart';
 
 class AccomplishmentsTab extends StatefulWidget {
   final User? user;
@@ -215,39 +216,13 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
     );
   }
 
-  // Helper to parse time string (e.g., '09:30:00 AM') to DateTime
-  DateTime? _parseTime(String date, String? time) {
-    if (time == null) return null;
-    try {
-      // Combine date and time, parse with DateFormat
-      return DateFormat('yyyy-MM-dd hh:mm:ss a').parse('$date $time');
-    } catch (_) {
-      return null;
-    }
-  }
-
-  // Compute hours for a single record
-  double _computeHours(AttendanceRecord rec) {
-    final inTime = _parseTime(rec.date, rec.timeIn);
-    final outTime = _parseTime(rec.date, rec.timeOut);
-    if (inTime != null && outTime != null && outTime.isAfter(inTime)) {
-      final diff = outTime.difference(inTime);
-      return diff.inMinutes / 60.0;
-    }
-    return 0.0;
-  }
-
-  double _computeTotalHours() {
-    return _filteredRecords.fold(0.0, (sum, rec) => sum + _computeHours(rec));
-  }
-
   Widget _buildPreview() {
     final user = widget.user;
     if (user == null) return const SizedBox.shrink();
     final company = user.company;
     final coordinator = user.collegeCoordinator;
     final records = _filteredRecords;
-    final totalHours = _computeTotalHours();
+    final totalHours = TimeUtils.computeTotalHours(_filteredRecords);
     final weekLabel = _week.isNotEmpty ? _week : '_';
     const double previewWidth = 900;
     return Center(
@@ -343,7 +318,7 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                           final dt = DateTime.parse(rec.date);
                           final dateStr = DateFormat('MMMM d, yyyy').format(dt);
                           final dayStr = DateFormat('EEEE').format(dt);
-                          final hours = _computeHours(rec);
+                          final hours = TimeUtils.computeHours(rec);
                           return TableRow(
                             children: [
                               Padding(
@@ -754,10 +729,11 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                     if (result) {
                       if (widget.user == null) return;
                       try {
+                        final totalHours = TimeUtils.computeTotalHours(_filteredRecords);
                         final pdfBytes = await generateAccomplishmentsPdf(
                           user: widget.user!,
                           records: _filteredRecords,
-                          totalHours: _computeTotalHours(),
+                          totalHours: totalHours,
                           weekLabel: 'Week ${_week.isNotEmpty ? _week : '_'}',
                         );
                         await Printing.sharePdf(bytes: Uint8List.fromList(pdfBytes), filename: 'accomplishments_${widget.user?.fullName}.pdf');

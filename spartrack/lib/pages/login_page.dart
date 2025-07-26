@@ -52,11 +52,14 @@ class _LoginPageState extends State<LoginPage> {
       if (!mounted) return;
 
       if (user != null) {
-        SweetAlertHelper.showSuccess(
-          context: context,
-          title: "Login Successful!",
-          text: "Welcome, ${user.username}!",
-        ).then((_) {
+        if (mounted) {
+          await SweetAlertHelper.showSuccess(
+            context: context,
+            title: "Login Successful!",
+            text: "Welcome, ${user.username}!",
+          );
+        }
+        if (mounted) {
           if (user.isNew) {
             Navigator.pushReplacement(
               context,
@@ -79,13 +82,15 @@ class _LoginPageState extends State<LoginPage> {
               ),
             );
           }
-        });
+        }
       } else {
-        SweetAlertHelper.showError(
-          context: context,
-          title: "Login Failed",
-          text: "Invalid username or password.",
-        );
+        if (mounted) {
+          await SweetAlertHelper.showError(
+            context: context,
+            title: "Login Failed",
+            text: "Invalid username or password.",
+          );
+        }
       }
     }
   }
