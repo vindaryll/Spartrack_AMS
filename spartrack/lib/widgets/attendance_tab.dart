@@ -7,7 +7,7 @@ import '../utils/app_colors.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import '../models/attendance_record.dart';
-import 'package:art_sweetalert/art_sweetalert.dart';
+import '../common/sweet_alert_helper.dart';
 
 class AttendanceTab extends StatefulWidget {
   final User user;
@@ -50,18 +50,14 @@ class _AttendanceTabState extends State<AttendanceTab> {
 
   void _handleTimeIn() async {
     final now = DateTime.now(); 
-    final result = await ArtSweetAlert.show(
+    final result = await SweetAlertHelper.showCustomQuestion(
       context: context,
-      artDialogArgs: ArtDialogArgs(
-        type: ArtSweetAlertType.question,
-        title: "Time In",
-        text: "Are you sure you want to time in?",
-        showCancelBtn: true,
-        confirmButtonText: "Confirm",
-        cancelButtonText: "Cancel",
-      ),
+      title: "Time In",
+      text: "Are you sure you want to time in?",
+      confirmButtonText: "Confirm",
+      cancelButtonText: "Cancel",
     );
-    if (result != null && result.isTapConfirmButton) {
+    if (result) {
       final today = DateFormat('yyyy-MM-dd').format(now);
       final timeStr = DateFormat('hh:mm:ss a').format(now);
       if (!mounted) return;
@@ -83,31 +79,24 @@ class _AttendanceTabState extends State<AttendanceTab> {
       
       // Show success SweetAlert
       if (!mounted) return;
-      ArtSweetAlert.show(
+      await SweetAlertHelper.showSuccess(
         context: context,
-        artDialogArgs: ArtDialogArgs(
-          type: ArtSweetAlertType.success,
-          title: "Time In Successful!",
-          text: 'You have successfully timed in at $timeStr',
-        ),
+        title: "Time In Successful!",
+        text: 'You have successfully timed in at $timeStr',
       );
     }
   }
 
   void _handleTimeOut() async {
     final now = DateTime.now(); 
-    final result = await ArtSweetAlert.show(
+    final result = await SweetAlertHelper.showCustomQuestion(
       context: context,
-      artDialogArgs: ArtDialogArgs(
-        type: ArtSweetAlertType.question,
-        title: "Time Out",
-        text: "Are you sure you want to time out?",
-        showCancelBtn: true,
-        confirmButtonText: "Confirm",
-        cancelButtonText: "Cancel",
-      ),
+      title: "Time Out",
+      text: "Are you sure you want to time out?",
+      confirmButtonText: "Confirm",
+      cancelButtonText: "Cancel",
     );
-    if (result != null && result.isTapConfirmButton) {
+    if (result) {
       final today = DateFormat('yyyy-MM-dd').format(now);
       final timeStr = DateFormat('hh:mm:ss a').format(now);
       if (!mounted) return;
@@ -123,13 +112,10 @@ class _AttendanceTabState extends State<AttendanceTab> {
       
       // Show success SweetAlert
       if (!mounted) return;
-      ArtSweetAlert.show(
+      await SweetAlertHelper.showSuccess(
         context: context,
-        artDialogArgs: ArtDialogArgs(
-          type: ArtSweetAlertType.success,
-          title: "Time Out Successful!",
-          text: 'You have successfully timed out at $timeStr',
-        ),
+        title: "Time Out Successful!",
+        text: 'You have successfully timed out at $timeStr',
       );
     }
   }
@@ -281,24 +267,18 @@ class _AttendanceTabState extends State<AttendanceTab> {
             try {
               _handleSaveAccomplishments();
               if (context.mounted) {
-                ArtSweetAlert.show(
+                await SweetAlertHelper.showSuccess(
                   context: context,
-                  artDialogArgs: ArtDialogArgs(
-                    type: ArtSweetAlertType.success,
-                    title: 'Saved!',
-                    text: 'Accomplishments for the day have been saved successfully.',
-                  ),
+                  title: 'Saved!',
+                  text: 'Accomplishments for the day have been saved successfully.',
                 );
               }
             } catch (e) {
               if (context.mounted) {
-                ArtSweetAlert.show(
+                await SweetAlertHelper.showError(
                   context: context,
-                  artDialogArgs: ArtDialogArgs(
-                    type: ArtSweetAlertType.danger,
-                    title: 'Save Failed',
-                    text: 'An error occurred while saving accomplishments: $e',
-                  ),
+                  title: 'Save Failed',
+                  text: 'An error occurred while saving accomplishments: $e',
                 );
               }
             }

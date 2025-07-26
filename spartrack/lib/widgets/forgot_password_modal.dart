@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../utils/app_colors.dart';
 import '../common/custom_text_field.dart';
 import '../common/custom_buttons.dart';
-import 'package:art_sweetalert/art_sweetalert.dart';
+import '../common/sweet_alert_helper.dart';
 import '../data_src/sample_data.dart';
 
 class ForgotPasswordModal extends StatefulWidget {
@@ -33,13 +33,10 @@ class _ForgotPasswordModalState extends State<ForgotPasswordModal> {
     if (!mounted) return;
     if (userExists) {
       if (!mounted) return;
-      await ArtSweetAlert.show(
+      await SweetAlertHelper.showSuccess(
         context: context,
-        artDialogArgs: ArtDialogArgs(
-          type: ArtSweetAlertType.success,
-          title: "Password Reset Link Sent",
-          text: "A password reset link has been sent to $email.",
-        ),
+        title: "Password Reset Link Sent",
+        text: "A password reset link has been sent to $email.",
       );
       if (widget.onSendResetLink != null) {
         widget.onSendResetLink!(email);
@@ -49,13 +46,10 @@ class _ForgotPasswordModalState extends State<ForgotPasswordModal> {
       }
     } else {
       if (!mounted) return;
-      await ArtSweetAlert.show(
+      await SweetAlertHelper.showError(
         context: context,
-        artDialogArgs: ArtDialogArgs(
-          type: ArtSweetAlertType.danger,
-          title: "Email Not Found",
-          text: "No account found for $email.",
-        ),
+        title: "Email Not Found",
+        text: "No account found for $email.",
       );
     }
   }

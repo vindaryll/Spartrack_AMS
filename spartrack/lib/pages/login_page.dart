@@ -3,7 +3,7 @@ import '../utils/app_colors.dart';
 import '../common/custom_buttons.dart';
 import '../common/custom_text_field.dart';
 import '../common/logo_widget.dart';
-import 'package:art_sweetalert/art_sweetalert.dart';
+import '../common/sweet_alert_helper.dart';
 import 'dashboard_page.dart';
 import '../common/password_field.dart';
 import '../services/auth_service.dart';
@@ -52,13 +52,10 @@ class _LoginPageState extends State<LoginPage> {
       if (!mounted) return;
 
       if (user != null) {
-        ArtSweetAlert.show(
+        SweetAlertHelper.showSuccess(
           context: context,
-          artDialogArgs: ArtDialogArgs(
-            type: ArtSweetAlertType.success,
-            title: "Login Successful!",
-            text: "Welcome, ${user.username}!",
-          ),
+          title: "Login Successful!",
+          text: "Welcome, ${user.username}!",
         ).then((_) {
           if (user.isNew) {
             Navigator.pushReplacement(
@@ -84,13 +81,10 @@ class _LoginPageState extends State<LoginPage> {
           }
         });
       } else {
-        ArtSweetAlert.show(
+        SweetAlertHelper.showError(
           context: context,
-          artDialogArgs: ArtDialogArgs(
-            type: ArtSweetAlertType.danger,
-            title: "Login Failed",
-            text: "Invalid username or password.",
-          ),
+          title: "Login Failed",
+          text: "Invalid username or password.",
         );
       }
     }

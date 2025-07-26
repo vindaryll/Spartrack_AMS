@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:art_sweetalert/art_sweetalert.dart';
+import '../common/sweet_alert_helper.dart';
 import '../models/user.dart';
 import '../pages/loading_page.dart';
 import '../pages/login_page.dart';
@@ -19,19 +19,13 @@ class AppDrawer extends StatelessWidget {
     // Capture a valid NavigatorState before popping the drawer
     final navigator = Navigator.of(context, rootNavigator: true);
     Navigator.pop(context); // Close the drawer first
-    final result = await ArtSweetAlert.show(
+    final result = await SweetAlertHelper.showQuestion(
       context: context,
-      artDialogArgs: ArtDialogArgs(
-        type: ArtSweetAlertType.warning,
-        title: "Logout Confirmation",
-        text: "Are you sure you want to logout?",
-        showCancelBtn: true,
-        confirmButtonText: "Confirm",
-        cancelButtonText: "Cancel",
-      ),
+      title: "Logout Confirmation",
+      text: "Are you sure you want to logout?",
     );
 
-    if (result != null && result.isTapConfirmButton) {
+    if (result) {
       navigator.pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const LoadingPage()),
         (route) => false,
@@ -109,14 +103,13 @@ class AppDrawer extends StatelessWidget {
                 builder: (context) => ChangeEmailModal(
                   onSubmit: (newEmail) async {
                     // TODO: Implement email change logic
-                    await ArtSweetAlert.show(
-                      context: context,
-                      artDialogArgs: ArtDialogArgs(
-                        type: ArtSweetAlertType.success,
+                    if (context.mounted) {
+                      await SweetAlertHelper.showSuccess(
+                        context: context,
                         title: "Verification Link Sent",
                         text: "A verification link has been sent to $newEmail.",
-                      ),
-                    );
+                      );
+                    }
                     if (context.mounted) {
                       Navigator.pop(context); // Close the modal after success
                     }
@@ -135,26 +128,24 @@ class AppDrawer extends StatelessWidget {
                 builder: (context) => ChangePasswordModal(
                   onSubmit: (currentPassword, newPassword) async {
                     if (currentPassword == user.password) {
-                      await ArtSweetAlert.show(
-                        context: context,
-                        artDialogArgs: ArtDialogArgs(
-                          type: ArtSweetAlertType.success,
+                      if (context.mounted) {
+                        await SweetAlertHelper.showSuccess(
+                          context: context,
                           title: "Password Changed",
                           text: "Your password has been updated successfully.",
-                        ),
-                      );
+                        );
+                      }
                       if (context.mounted) {
                         Navigator.pop(context); // Close the modal after success
                       }
                     } else {
-                      await ArtSweetAlert.show(
-                        context: context,
-                        artDialogArgs: ArtDialogArgs(
-                          type: ArtSweetAlertType.danger,
+                      if (context.mounted) {
+                        await SweetAlertHelper.showError(
+                          context: context,
                           title: "Change Failed",
                           text: "Current password is incorrect.",
-                        ),
-                      );
+                        );
+                      }
                     }
                   },
                 ),

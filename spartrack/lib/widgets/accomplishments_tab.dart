@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:printing/printing.dart';
 import '../utils/pdf_accomplishments.dart';
 import 'dart:typed_data';
-import 'package:art_sweetalert/art_sweetalert.dart';
+import '../common/sweet_alert_helper.dart';
 import '../common/custom_text_field.dart';
 import '../common/custom_date_input.dart';
 import '../common/custom_buttons.dart';
@@ -743,19 +743,15 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                   icon: Icons.print,
                   onPressed: () async {
                     // Show confirmation SweetAlert first
-                    final result = await ArtSweetAlert.show(
+                    final result = await SweetAlertHelper.showCustomQuestion(
                       context: context,
-                      artDialogArgs: ArtDialogArgs(
-                        type: ArtSweetAlertType.question,
-                        title: "Print Accomplishments",
-                        text: "Are you sure you want to print the accomplishments report?",
-                        showCancelBtn: true,
-                        confirmButtonText: "Print",
-                        cancelButtonText: "Cancel",
-                      ),
+                      title: "Print Accomplishments",
+                      text: "Are you sure you want to print the accomplishments report?",
+                      confirmButtonText: "Print",
+                      cancelButtonText: "Cancel",
                     );
                     
-                    if (result != null && result.isTapConfirmButton) {
+                    if (result) {
                       if (widget.user == null) return;
                       try {
                         final pdfBytes = await generateAccomplishmentsPdf(
@@ -767,25 +763,19 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                         await Printing.sharePdf(bytes: Uint8List.fromList(pdfBytes), filename: 'accomplishments_${widget.user?.fullName}.pdf');
                         // Show success SweetAlert
                         if (context.mounted) {
-                          ArtSweetAlert.show(
+                          await SweetAlertHelper.showSuccess(
                             context: context,
-                            artDialogArgs: ArtDialogArgs(
-                              type: ArtSweetAlertType.success,
-                              title: "Print Successful!",
-                              text: "The accomplishments PDF was generated and shared successfully.",
-                            ),
+                            title: "Print Successful!",
+                            text: "The accomplishments PDF was generated and shared successfully.",
                           );
                         }
                       } catch (e) {
                         // Show error SweetAlert
                         if (context.mounted) {
-                          ArtSweetAlert.show(
+                          await SweetAlertHelper.showError(
                             context: context,
-                            artDialogArgs: ArtDialogArgs(
-                              type: ArtSweetAlertType.danger,
-                              title: "Print Failed",
-                              text: 'An error occurred while generating or sharing the PDF: $e',
-                            ),
+                            title: "Print Failed",
+                            text: 'An error occurred while generating or sharing the PDF: $e',
                           );
                         }
                       }
