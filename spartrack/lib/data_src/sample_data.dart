@@ -10,6 +10,7 @@ final List<User> sampleUsers = [
   User(
     username: 'user',
     password: 'spartans123',
+    email: '22-11111@g.batstate-u.edu.ph',
     fullName: 'ALOCILLO, MELVIN DARYLL',
     collegeDept: 'College of Informatics and Computing Sciences',
     program: 'BS Information Technology',
@@ -605,6 +606,7 @@ final List<User> sampleUsers = [
   User(
     username: 'user2',
     password: 'password123',
+    email: '22-22222@g.batstate-u.edu.ph',
     fullName: 'JOSE, PRINCESS MIKHAELA',
     collegeDept: 'College of Informatics and Computing Sciences',
     program: 'BS Information Technology',

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import '../utils/app_colors.dart';
-import 'custom_text_field.dart';
-import 'custom_buttons.dart';
+import '../common/custom_text_field.dart';
+import '../common/custom_buttons.dart';
+import 'package:art_sweetalert/art_sweetalert.dart';
+import '../data_src/sample_data.dart';
 
 class ForgotPasswordModal extends StatefulWidget {
   final void Function(String email)? onSendResetLink;
@@ -21,15 +23,41 @@ class _ForgotPasswordModalState extends State<ForgotPasswordModal> {
     super.dispose();
   }
 
-  void _sendResetLink() async {
+  Future<void> _sendResetLink() async {
     setState(() { _isSending = true; });
     await Future.delayed(const Duration(seconds: 1)); // Simulate sending
     if (!mounted) return;
+    final email = _emailController.text.trim();
+    final userExists = sampleUsers.any((user) => user.email.toLowerCase() == email.toLowerCase());
     setState(() { _isSending = false; });
-    if (widget.onSendResetLink != null) {
-      widget.onSendResetLink!(_emailController.text.trim());
+    if (!mounted) return;
+    if (userExists) {
+      if (!mounted) return;
+      await ArtSweetAlert.show(
+        context: context,
+        artDialogArgs: ArtDialogArgs(
+          type: ArtSweetAlertType.success,
+          title: "Password Reset Link Sent",
+          text: "A password reset link has been sent to $email.",
+        ),
+      );
+      if (widget.onSendResetLink != null) {
+        widget.onSendResetLink!(email);
+      }
+      if (mounted) {
+        Navigator.pop(context);
+      }
+    } else {
+      if (!mounted) return;
+      await ArtSweetAlert.show(
+        context: context,
+        artDialogArgs: ArtDialogArgs(
+          type: ArtSweetAlertType.danger,
+          title: "Email Not Found",
+          text: "No account found for $email.",
+        ),
+      );
     }
-    Navigator.pop(context);
   }
 
   @override
@@ -97,6 +125,7 @@ class _ForgotPasswordModalState extends State<ForgotPasswordModal> {
                     placeholder: 'Enter your email',
                     controller: _emailController,
                     enabled: !_isSending,
+                    onChanged: (_) => setState(() {}),
                   ),
                   const SizedBox(height: 24),
                   SizedBox(

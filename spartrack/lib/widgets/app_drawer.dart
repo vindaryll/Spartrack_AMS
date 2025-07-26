@@ -3,6 +3,7 @@ import 'package:art_sweetalert/art_sweetalert.dart';
 import '../models/user.dart';
 import '../pages/loading_page.dart';
 import '../pages/login_page.dart';
+import 'change_password_modal.dart';
 
 class AppDrawer extends StatelessWidget {
   final User user;
@@ -109,8 +110,36 @@ class AppDrawer extends StatelessWidget {
             leading: const Icon(Icons.lock),
             title: const Text('Change password'),
             onTap: () {
-              // TODO: Implement change password
-              Navigator.pop(context);
+              Navigator.pop(context); // Close the drawer first
+              showDialog(
+                context: context,
+                builder: (context) => ChangePasswordModal(
+                  onSubmit: (currentPassword, newPassword) async {
+                    if (currentPassword == user.password) {
+                      await ArtSweetAlert.show(
+                        context: context,
+                        artDialogArgs: ArtDialogArgs(
+                          type: ArtSweetAlertType.success,
+                          title: "Password Changed",
+                          text: "Your password has been updated successfully.",
+                        ),
+                      );
+                      if (context.mounted) {
+                        Navigator.pop(context); // Close the modal after success
+                      }
+                    } else {
+                      await ArtSweetAlert.show(
+                        context: context,
+                        artDialogArgs: ArtDialogArgs(
+                          type: ArtSweetAlertType.danger,
+                          title: "Change Failed",
+                          text: "Current password is incorrect.",
+                        ),
+                      );
+                    }
+                  },
+                ),
+              );
             },
           ),
           const Divider(),

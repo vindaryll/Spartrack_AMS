@@ -762,7 +762,7 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                           user: widget.user!,
                           records: _filteredRecords,
                           totalHours: _computeTotalHours(),
-                          weekLabel: 'Week ' + (_week.isNotEmpty ? _week : '_'),
+                          weekLabel: 'Week ${_week.isNotEmpty ? _week : '_'}',
                         );
                         await Printing.sharePdf(bytes: Uint8List.fromList(pdfBytes), filename: 'accomplishments_${widget.user?.fullName}.pdf');
                         // Show success SweetAlert

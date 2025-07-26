@@ -8,7 +8,7 @@ import 'dashboard_page.dart';
 import '../common/password_field.dart';
 import '../services/auth_service.dart';
 import 'landing_page.dart';
-import '../common/forgot_password_modal.dart';
+import '../widgets/forgot_password_modal.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

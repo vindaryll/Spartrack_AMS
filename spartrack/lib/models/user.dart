@@ -5,6 +5,7 @@ import 'company.dart';
 class User {
   final String username;
   final String password;
+  final String email;
   final String fullName;
   final String collegeDept;
   final String program;
@@ -22,6 +23,7 @@ class User {
   User({
     required this.username,
     required this.password,
+    required this.email,
     required this.fullName,
     required this.collegeDept,
     required this.program,
