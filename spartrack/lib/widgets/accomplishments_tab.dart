@@ -11,6 +11,7 @@ import '../utils/pdf_accomplishments.dart';
 import 'dart:typed_data';
 import 'package:art_sweetalert/art_sweetalert.dart';
 import '../common/custom_text_field.dart';
+import '../common/custom_date_input.dart';
 
 class AccomplishmentsTab extends StatefulWidget {
   final User? user;
@@ -120,73 +121,29 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           // From
-                          Stack(
-                            alignment: Alignment.centerRight,
-                            children: [
-                              GestureDetector(
-                                onTap: () async {
-                                  final picked = await showDatePicker(
-                                    context: context,
-                                    initialDate: tempFrom ?? DateTime.now(),
-                                    firstDate: DateTime(2020),
-                                    lastDate: DateTime(2100),
-                                  );
-                                  if (picked != null) {
-                                    setModalState(() {
-                                      tempFrom = picked;
-                                      fromController.text = DateFormat('yyyy-MM-dd').format(picked);
-                                    });
-                                  }
-                                },
-                                child: AbsorbPointer(
-                                  child: CustomTextField(
-                                    label: 'From:',
-                                    placeholder: 'Select date',
-                                    controller: fromController,
-                                    enabled: false,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: Icon(Icons.calendar_today, size: 17, color: Color(0xFF4A4A4A)),
-                              ),
-                            ],
+                          CustomDateInput(
+                            label: 'From:',
+                            controller: fromController,
+                            initialDate: tempFrom,
+                            backgroundColor: Colors.white.withOpacity(0.9),
+                            onDateSelected: (date) {
+                              setModalState(() {
+                                tempFrom = date;
+                              });
+                            },
                           ),
                           const SizedBox(height: 10),
                           // To
-                          Stack(
-                            alignment: Alignment.centerRight,
-                            children: [
-                              GestureDetector(
-                                onTap: () async {
-                                  final picked = await showDatePicker(
-                                    context: context,
-                                    initialDate: tempTo ?? DateTime.now(),
-                                    firstDate: DateTime(2020),
-                                    lastDate: DateTime(2100),
-                                  );
-                                  if (picked != null) {
-                                    setModalState(() {
-                                      tempTo = picked;
-                                      toController.text = DateFormat('yyyy-MM-dd').format(picked);
-                                    });
-                                  }
-                                },
-                                child: AbsorbPointer(
-                                  child: CustomTextField(
-                                    label: 'To:',
-                                    placeholder: 'Select date',
-                                    controller: toController,
-                                    enabled: false,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: Icon(Icons.calendar_today, size: 17, color: Color(0xFF4A4A4A)),
-                              ),
-                            ],
+                          CustomDateInput(
+                            label: 'To:',
+                            controller: toController,
+                            initialDate: tempTo,
+                            backgroundColor: Colors.white.withOpacity(0.9),
+                            onDateSelected: (date) {
+                              setModalState(() {
+                                tempTo = date;
+                              });
+                            },
                           ),
                           const SizedBox(height: 10),
                           // Week
