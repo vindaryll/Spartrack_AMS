@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../utils/app_colors.dart';
 import '../common/custom_text_field.dart';
-import 'package:art_sweetalert/art_sweetalert.dart';
 
 class ChangeEmailModal extends StatefulWidget {
   final void Function(String newEmail)? onSubmit;

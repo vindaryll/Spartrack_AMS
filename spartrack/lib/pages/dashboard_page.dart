@@ -84,8 +84,8 @@ class _DashboardPageState extends State<DashboardPage> {
                       const SizedBox(height: 16),
                       // Main Tab Container with dynamic header
                       Container(
-                        width: 394,
-                        margin: const EdgeInsets.only(left: 9, top: 8, bottom: 8),
+                        width: double.infinity,
+                        margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
                         decoration: BoxDecoration(
                           color: AppColors.white,
                           border: Border.all(color: AppColors.borderGray, width: 0.5),
