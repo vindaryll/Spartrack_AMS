@@ -4,6 +4,7 @@ import '../models/user.dart';
 import '../pages/loading_page.dart';
 import '../pages/login_page.dart';
 import 'change_password_modal.dart';
+import 'change_email_modal.dart';
 
 class AppDrawer extends StatelessWidget {
   final User user;
@@ -102,8 +103,26 @@ class AppDrawer extends StatelessWidget {
             leading: const Icon(Icons.email),
             title: const Text('Change email'),
             onTap: () {
-              // TODO: Implement change email
-              Navigator.pop(context);
+              Navigator.pop(context); // Close the drawer first
+              showDialog(
+                context: context,
+                builder: (context) => ChangeEmailModal(
+                  onSubmit: (newEmail) async {
+                    // TODO: Implement email change logic
+                    await ArtSweetAlert.show(
+                      context: context,
+                      artDialogArgs: ArtDialogArgs(
+                        type: ArtSweetAlertType.success,
+                        title: "Verification Link Sent",
+                        text: "A verification link has been sent to $newEmail.",
+                      ),
+                    );
+                    if (context.mounted) {
+                      Navigator.pop(context); // Close the modal after success
+                    }
+                  },
+                ),
+              );
             },
           ),
           ListTile(
