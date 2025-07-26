@@ -92,11 +92,11 @@ class _DashboardPageState extends State<DashboardPage> {
                           borderRadius: BorderRadius.circular(5),
                           boxShadow: [
                             BoxShadow(
-                              color: AppColors.shadowDark.withOpacity(0.15),
-                              blurRadius: 10,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
+                                color: AppColors.shadowDark.withValues(alpha: (255 * 0.15).round().toDouble()),
+                                blurRadius: 10,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,

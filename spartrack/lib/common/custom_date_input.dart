@@ -59,7 +59,7 @@ class CustomDateInput extends StatelessWidget {
           child: Icon(
             Icons.calendar_today, 
             size: 17, 
-            color: enabled ? const Color(0xFF4A4A4A) : const Color(0xFF4A4A4A).withOpacity(0.5),
+            color: enabled ? const Color(0xFF4A4A4A) : const Color(0xFF4A4A4A).withValues(alpha: (255 * 0.5).round().toDouble()),
           ),
         ),
       ],

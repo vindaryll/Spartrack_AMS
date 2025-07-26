@@ -64,6 +64,7 @@ class _AttendanceTabState extends State<AttendanceTab> {
     if (result != null && result.isTapConfirmButton) {
       final today = DateFormat('yyyy-MM-dd').format(now);
       final timeStr = DateFormat('hh:mm:ss a').format(now);
+      if (!mounted) return;
       setState(() {
         AttendanceRecord? todayRec = widget.user.attendanceRecords?.firstWhere(
           (rec) => rec.date == today,
@@ -81,16 +82,15 @@ class _AttendanceTabState extends State<AttendanceTab> {
       });
       
       // Show success SweetAlert
-      if (context.mounted) {
-        ArtSweetAlert.show(
-          context: context,
-          artDialogArgs: ArtDialogArgs(
-            type: ArtSweetAlertType.success,
-            title: "Time In Successful!",
-            text: "You have successfully timed in at $timeStr",
-          ),
-        );
-      }
+      if (!mounted) return;
+      ArtSweetAlert.show(
+        context: context,
+        artDialogArgs: ArtDialogArgs(
+          type: ArtSweetAlertType.success,
+          title: "Time In Successful!",
+          text: 'You have successfully timed in at $timeStr',
+        ),
+      );
     }
   }
 
@@ -110,6 +110,7 @@ class _AttendanceTabState extends State<AttendanceTab> {
     if (result != null && result.isTapConfirmButton) {
       final today = DateFormat('yyyy-MM-dd').format(now);
       final timeStr = DateFormat('hh:mm:ss a').format(now);
+      if (!mounted) return;
       setState(() {
         AttendanceRecord? todayRec = widget.user.attendanceRecords?.firstWhere(
           (rec) => rec.date == today,
@@ -121,16 +122,15 @@ class _AttendanceTabState extends State<AttendanceTab> {
       });
       
       // Show success SweetAlert
-      if (context.mounted) {
-        ArtSweetAlert.show(
-          context: context,
-          artDialogArgs: ArtDialogArgs(
-            type: ArtSweetAlertType.success,
-            title: "Time Out Successful!",
-            text: "You have successfully timed out at $timeStr",
-          ),
-        );
-      }
+      if (!mounted) return;
+      ArtSweetAlert.show(
+        context: context,
+        artDialogArgs: ArtDialogArgs(
+          type: ArtSweetAlertType.success,
+          title: "Time Out Successful!",
+          text: 'You have successfully timed out at $timeStr',
+        ),
+      );
     }
   }
 
@@ -285,8 +285,8 @@ class _AttendanceTabState extends State<AttendanceTab> {
                   context: context,
                   artDialogArgs: ArtDialogArgs(
                     type: ArtSweetAlertType.success,
-                    title: "Saved!",
-                    text: "Accomplishments for the day have been saved successfully.",
+                    title: 'Saved!',
+                    text: 'Accomplishments for the day have been saved successfully.',
                   ),
                 );
               }
@@ -296,8 +296,8 @@ class _AttendanceTabState extends State<AttendanceTab> {
                   context: context,
                   artDialogArgs: ArtDialogArgs(
                     type: ArtSweetAlertType.danger,
-                    title: "Save Failed",
-                    text: "An error occurred while saving accomplishments: \n"+e.toString(),
+                    title: 'Save Failed',
+                    text: 'An error occurred while saving accomplishments: $e',
                   ),
                 );
               }

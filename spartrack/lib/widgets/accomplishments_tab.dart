@@ -126,7 +126,7 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                             label: 'From:',
                             controller: fromController,
                             initialDate: tempFrom,
-                            backgroundColor: Colors.white.withOpacity(0.9),
+                            backgroundColor: Colors.white.withValues(alpha: (255 * 0.9).round().toDouble()),
                             onDateSelected: (date) {
                               setModalState(() {
                                 tempFrom = date;
@@ -139,7 +139,7 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                             label: 'To:',
                             controller: toController,
                             initialDate: tempTo,
-                            backgroundColor: Colors.white.withOpacity(0.9),
+                            backgroundColor: Colors.white.withValues(alpha: (255 * 0.9).round().toDouble()),
                             onDateSelected: (date) {
                               setModalState(() {
                                 tempTo = date;
@@ -784,7 +784,7 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                             artDialogArgs: ArtDialogArgs(
                               type: ArtSweetAlertType.danger,
                               title: "Print Failed",
-                              text: "An error occurred while generating or sharing the PDF: \n"+e.toString(),
+                              text: 'An error occurred while generating or sharing the PDF: $e',
                             ),
                           );
                         }

@@ -66,7 +66,7 @@ class ProgressDashboardTab extends StatelessWidget {
                 Row(
                   children: [
                     // Circular Progress Indicator
-                    Container(
+                    SizedBox(
                       width: 139,
                       height: 132,
                       child: Stack(

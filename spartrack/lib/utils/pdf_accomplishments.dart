@@ -171,7 +171,7 @@ pw.Widget _infoRow(String label, String value, pw.Font ttf, pw.Font ttfBold) {
       children: [
         pw.Container(
           width: 140,
-          child: pw.Text('$label', style: pw.TextStyle(font: ttfBold, fontWeight: pw.FontWeight.bold, fontSize: 10)),
+          child: pw.Text(label, style: pw.TextStyle(font: ttfBold, fontWeight: pw.FontWeight.bold, fontSize: 10)),
         ),
         pw.Text(': ', style: pw.TextStyle(font: ttfBold, fontWeight: pw.FontWeight.bold, fontSize: 10)),
         pw.Expanded(

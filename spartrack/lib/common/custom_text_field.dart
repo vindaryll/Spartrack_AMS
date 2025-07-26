@@ -42,7 +42,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       keyboardType: widget.keyboardType,
       enabled: widget.enabled,
       style: TextStyle(
-        color: widget.enabled ? Colors.black : Colors.black.withOpacity(0.8),
+        color: widget.enabled ? Colors.black : Colors.black.withValues(alpha: (255 * 0.8).round().toDouble()),
       ),
       decoration: InputDecoration(
         labelText: widget.label,
