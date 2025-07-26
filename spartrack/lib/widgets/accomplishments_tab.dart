@@ -742,37 +742,52 @@ class _AccomplishmentsTabState extends State<AccomplishmentsTab> {
                   text: 'Print',
                   icon: Icons.print,
                   onPressed: () async {
-                    if (widget.user == null) return;
-                    try {
-                      final pdfBytes = await generateAccomplishmentsPdf(
-                        user: widget.user!,
-                        records: _filteredRecords,
-                        totalHours: _computeTotalHours(),
-                        weekLabel: 'Week ' + (_week.isNotEmpty ? _week : '_'),
-                      );
-                      await Printing.sharePdf(bytes: Uint8List.fromList(pdfBytes), filename: 'accomplishments_${widget.user?.fullName}.pdf');
-                      // Show success SweetAlert
-                      if (context.mounted) {
-                        ArtSweetAlert.show(
-                          context: context,
-                          artDialogArgs: ArtDialogArgs(
-                            type: ArtSweetAlertType.success,
-                            title: "Print Successful!",
-                            text: "The accomplishments PDF was generated and shared successfully.",
-                          ),
+                    // Show confirmation SweetAlert first
+                    final result = await ArtSweetAlert.show(
+                      context: context,
+                      artDialogArgs: ArtDialogArgs(
+                        type: ArtSweetAlertType.question,
+                        title: "Print Accomplishments",
+                        text: "Are you sure you want to print the accomplishments report?",
+                        showCancelBtn: true,
+                        confirmButtonText: "Print",
+                        cancelButtonText: "Cancel",
+                      ),
+                    );
+                    
+                    if (result != null && result.isTapConfirmButton) {
+                      if (widget.user == null) return;
+                      try {
+                        final pdfBytes = await generateAccomplishmentsPdf(
+                          user: widget.user!,
+                          records: _filteredRecords,
+                          totalHours: _computeTotalHours(),
+                          weekLabel: 'Week ' + (_week.isNotEmpty ? _week : '_'),
                         );
-                      }
-                    } catch (e) {
-                      // Show error SweetAlert
-                      if (context.mounted) {
-                        ArtSweetAlert.show(
-                          context: context,
-                          artDialogArgs: ArtDialogArgs(
-                            type: ArtSweetAlertType.danger,
-                            title: "Print Failed",
-                            text: "An error occurred while generating or sharing the PDF: \n"+e.toString(),
-                          ),
-                        );
+                        await Printing.sharePdf(bytes: Uint8List.fromList(pdfBytes), filename: 'accomplishments_${widget.user?.fullName}.pdf');
+                        // Show success SweetAlert
+                        if (context.mounted) {
+                          ArtSweetAlert.show(
+                            context: context,
+                            artDialogArgs: ArtDialogArgs(
+                              type: ArtSweetAlertType.success,
+                              title: "Print Successful!",
+                              text: "The accomplishments PDF was generated and shared successfully.",
+                            ),
+                          );
+                        }
+                      } catch (e) {
+                        // Show error SweetAlert
+                        if (context.mounted) {
+                          ArtSweetAlert.show(
+                            context: context,
+                            artDialogArgs: ArtDialogArgs(
+                              type: ArtSweetAlertType.danger,
+                              title: "Print Failed",
+                              text: "An error occurred while generating or sharing the PDF: \n"+e.toString(),
+                            ),
+                          );
+                        }
                       }
                     }
                   },

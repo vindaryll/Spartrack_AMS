@@ -55,28 +55,31 @@ class CustomBottomNavigationBar extends StatelessWidget {
   }) {
     final isSelected = selectedIndex == index;
     
-    return GestureDetector(
-      onTap: () => onTap(index),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              shape: BoxShape.circle,
-              border: isSelected 
-                ? Border.all(color: AppColors.dangerRed, width: 4)
-                : null,
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () => onTap(index),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                shape: BoxShape.circle,
+                border: isSelected 
+                  ? Border.all(color: AppColors.dangerRed, width: 4)
+                  : null,
+              ),
+              child: Icon(
+                icon,
+                color: AppColors.accentRed,
+                size: 20,
+              ),
             ),
-            child: Icon(
-              icon,
-              color: AppColors.accentRed,
-              size: 20,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -79,6 +79,18 @@ class _AttendanceTabState extends State<AttendanceTab> {
           }
         }
       });
+      
+      // Show success SweetAlert
+      if (context.mounted) {
+        ArtSweetAlert.show(
+          context: context,
+          artDialogArgs: ArtDialogArgs(
+            type: ArtSweetAlertType.success,
+            title: "Time In Successful!",
+            text: "You have successfully timed in at $timeStr",
+          ),
+        );
+      }
     }
   }
 
@@ -107,6 +119,18 @@ class _AttendanceTabState extends State<AttendanceTab> {
           todayRec.timeOut = timeStr;
         }
       });
+      
+      // Show success SweetAlert
+      if (context.mounted) {
+        ArtSweetAlert.show(
+          context: context,
+          artDialogArgs: ArtDialogArgs(
+            type: ArtSweetAlertType.success,
+            title: "Time Out Successful!",
+            text: "You have successfully timed out at $timeStr",
+          ),
+        );
+      }
     }
   }
 
