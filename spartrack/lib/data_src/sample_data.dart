@@ -18,6 +18,7 @@ final List<User> sampleUsers = [
     status: 'DEPLOYED',
     profileImage: 'assets/images/profile_1.png',
     ojtDept: 'IT',
+    requiredNoHours: 600,
     company: Company(
       supervisorName: 'DELA CRUZ, SUSAN S.',
       role: 'Company Supervisor',
@@ -613,6 +614,7 @@ final List<User> sampleUsers = [
     profileImage: 'assets/images/profile_2.png',
     isNew: true,
     ojtDept: 'IT',
+    requiredNoHours: 600,
     company: Company(
       supervisorName: 'DELA CRUZ, SUSAN S.',
       role: 'Company Supervisor',

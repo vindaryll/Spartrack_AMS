@@ -14,6 +14,7 @@ class User {
   final String profileImage;
   final bool isNew;
   final String ojtDept;
+  final int requiredNoHours;
   final List<AttendanceRecord>? attendanceRecords;
   final CollegeCoordinator? collegeCoordinator;
   final Company? company;
@@ -30,6 +31,7 @@ class User {
     required this.profileImage,
     this.isNew = false,
     required this.ojtDept,
+    required this.requiredNoHours,
     this.attendanceRecords,
     this.collegeCoordinator,
     this.company,

@@ -1,221 +1,289 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../utils/app_colors.dart';
+import '../models/user.dart';
 
 class ProgressDashboardTab extends StatelessWidget {
-  const ProgressDashboardTab({super.key});
+  final User? user;
+  
+  const ProgressDashboardTab({super.key, this.user});
+
+  // Calculate completed hours from attendance records
+  double _calculateCompletedHours() {
+    if (user?.attendanceRecords == null) return 0.0;
+    
+    double totalHours = 0.0;
+    for (final record in user!.attendanceRecords!) {
+      if (record.timeIn != null && record.timeOut != null) {
+        try {
+          final inTime = _parseTime(record.date, record.timeIn);
+          final outTime = _parseTime(record.date, record.timeOut);
+          if (inTime != null && outTime != null && outTime.isAfter(inTime)) {
+            final diff = outTime.difference(inTime);
+            totalHours += diff.inMinutes / 60.0;
+          }
+        } catch (e) {
+          // Skip invalid records
+        }
+      }
+    }
+    return totalHours;
+  }
+
+  // Helper to parse time string
+  DateTime? _parseTime(String date, String? time) {
+    if (time == null) return null;
+    try {
+      return DateFormat('yyyy-MM-dd hh:mm:ss a').parse('$date $time');
+    } catch (_) {
+      return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Header
-        Text(
-          'Progress Dashboard',
-          style: AppColors.headingStyle.copyWith(
-            fontSize: 24,
-            color: AppColors.black,
-          ),
-        ),
-        const SizedBox(height: 16),
-        // Summary Cards
-        Row(
-          children: [
-            Expanded(
-              child: _buildSummaryCard(
-                title: 'Total Days',
-                value: '45',
-                icon: Icons.calendar_month,
-                color: AppColors.infoBlue,
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: _buildSummaryCard(
-                title: 'Attendance Rate',
-                value: '98%',
-                icon: Icons.check_circle,
-                color: AppColors.successGreen,
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: _buildSummaryCard(
-                title: 'Tasks Completed',
-                value: '127',
-                icon: Icons.assignment_turned_in,
-                color: AppColors.orange,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 32),
-        // Progress Chart Section
-        Text(
-          'Weekly Progress',
-          style: AppColors.subheadingStyle.copyWith(
-            fontSize: 18,
-            color: AppColors.black,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        const SizedBox(height: 16),
-        Container(
-          height: 200,
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppColors.fieldGray),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.shadowLight,
-                blurRadius: 10,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'This Week',
-                    style: AppColors.subheadingStyle.copyWith(
-                      fontSize: 16,
-                      color: AppColors.black,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Text(
-                    '5/7 days',
-                    style: AppColors.captionStyle.copyWith(
-                      fontSize: 14,
-                      color: AppColors.darkGray,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              // Simple progress bar representation
-              Row(
-                children: List.generate(7, (index) {
-                  bool isCompleted = index < 5;
-                  return Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 2),
-                      height: 60,
-                      decoration: BoxDecoration(
-                        color: isCompleted ? AppColors.successGreen : AppColors.fieldGray,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Center(
-                        child: Icon(
-                          isCompleted ? Icons.check : Icons.close,
-                          color: isCompleted ? AppColors.white : AppColors.darkGray,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                  );
-                }),
-              ),
-              const SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Mon', style: AppColors.captionStyle.copyWith(fontSize: 12, color: AppColors.darkGray)),
-                  Text('Tue', style: AppColors.captionStyle.copyWith(fontSize: 12, color: AppColors.darkGray)),
-                  Text('Wed', style: AppColors.captionStyle.copyWith(fontSize: 12, color: AppColors.darkGray)),
-                  Text('Thu', style: AppColors.captionStyle.copyWith(fontSize: 12, color: AppColors.darkGray)),
-                  Text('Fri', style: AppColors.captionStyle.copyWith(fontSize: 12, color: AppColors.darkGray)),
-                  Text('Sat', style: AppColors.captionStyle.copyWith(fontSize: 12, color: AppColors.darkGray)),
-                  Text('Sun', style: AppColors.captionStyle.copyWith(fontSize: 12, color: AppColors.darkGray)),
-                ],
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 32),
-        // Recent Activities
-        Text(
-          'Recent Activities',
-          style: AppColors.subheadingStyle.copyWith(
-            fontSize: 18,
-            color: AppColors.black,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        const SizedBox(height: 16),
-        _buildActivityItem(
-          icon: Icons.login,
-          title: 'Time In',
-          subtitle: 'Today at 8:00 AM',
-          color: AppColors.successGreen,
-        ),
-        _buildActivityItem(
-          icon: Icons.logout,
-          title: 'Time Out',
-          subtitle: 'Today at 5:00 PM',
-          color: AppColors.dangerRed,
-        ),
-        _buildActivityItem(
-          icon: Icons.save,
-          title: 'Saved Accomplishments',
-          subtitle: 'Today at 4:30 PM',
-          color: AppColors.infoBlue,
-        ),
-        _buildActivityItem(
-          icon: Icons.assignment_turned_in,
-          title: 'Completed RLE Task',
-          subtitle: 'Yesterday at 3:15 PM',
-          color: AppColors.orange,
-        ),
-      ],
-    );
-  }
+    final completedHours = _calculateCompletedHours();
+    final requiredHours = user?.requiredNoHours ?? 600;
+    final remainingHours = (requiredHours - completedHours).clamp(0.0, double.infinity);
+    final progressPercentage = (completedHours / requiredHours * 100).clamp(0.0, 100.0);
 
-  Widget _buildSummaryCard({
-    required String title,
-    required String value,
-    required IconData icon,
-    required Color color,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.fieldGray),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.shadowLight,
-            blurRadius: 10,
-            offset: const Offset(0, 2),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Progress Dashboard Content
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              border: Border.all(color: AppColors.borderGray, width: 0.5),
+              borderRadius: BorderRadius.circular(3),
+            ),
+            child: Column(
+              children: [
+                // Progress Row
+                Row(
+                  children: [
+                    // Circular Progress Indicator
+                    Container(
+                      width: 139,
+                      height: 132,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          // Background circle
+                          Container(
+                            width: 120,
+                            height: 120,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColors.lightGray,
+                            ),
+                          ),
+                          // Progress circle
+                          SizedBox(
+                            width: 120,
+                            height: 120,
+                            child: CircularProgressIndicator(
+                              value: progressPercentage / 100,
+                              strokeWidth: 12,
+                              backgroundColor: AppColors.lightGray,
+                              valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF00B715)),
+                            ),
+                          ),
+                          // Percentage text
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '${progressPercentage.toInt()}%',
+                                style: const TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 24,
+                                  color: AppColors.black,
+                                ),
+                              ),
+                              const Text(
+                                'Complete',
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 12,
+                                  color: AppColors.darkGray,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    
+                    const SizedBox(width: 20),
+                    
+                    // Total Required Hours Card
+                    Expanded(
+                      child: _buildHourCard(
+                        title: 'TOTAL REQUIRED HOURS',
+                        hours: requiredHours.toInt(),
+                        backgroundColor: const Color(0xFF1E88E5),
+                        footerColor: const Color(0xFF145AB7),
+                        icon: Icons.access_time,
+                      ),
+                    ),
+                  ],
+                ),
+                
+                const SizedBox(height: 20),
+                
+                // Bottom Row - Completed and Remaining Hours
+                Row(
+                  children: [
+                    // Completed Hours Card
+                    Expanded(
+                      child: _buildHourCard(
+                        title: 'COMPLETED HOURS',
+                        hours: completedHours.toInt(),
+                        backgroundColor: const Color(0xFF43A047),
+                        footerColor: const Color(0xFF317634),
+                        icon: Icons.check_circle,
+                      ),
+                    ),
+                    
+                    const SizedBox(width: 20),
+                    
+                    // Remaining Hours Card
+                    Expanded(
+                      child: _buildHourCard(
+                        title: 'REMAINING HOURS',
+                        hours: remainingHours.toInt(),
+                        backgroundColor: const Color(0xFFFB8C00),
+                        footerColor: const Color(0xFFBB6902),
+                        icon: Icons.access_time,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          
+          const SizedBox(height: 32),
+          
+          // Recent Activities Section
+          Text(
+            'Recent Activities',
+            style: AppColors.subheadingStyle.copyWith(
+              fontSize: 18,
+              color: AppColors.black,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 16),
+          
+          // Recent Activities List
+          _buildActivityItem(
+            icon: Icons.login,
+            title: 'Time In',
+            subtitle: 'Today at 8:00 AM',
+            color: AppColors.successGreen,
+          ),
+          _buildActivityItem(
+            icon: Icons.logout,
+            title: 'Time Out',
+            subtitle: 'Today at 5:00 PM',
+            color: AppColors.dangerRed,
+          ),
+          _buildActivityItem(
+            icon: Icons.save,
+            title: 'Saved Accomplishments',
+            subtitle: 'Today at 4:30 PM',
+            color: AppColors.infoBlue,
+          ),
+          _buildActivityItem(
+            icon: Icons.assignment_turned_in,
+            title: 'Completed RLE Task',
+            subtitle: 'Yesterday at 3:15 PM',
+            color: AppColors.orange,
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildHourCard({
+    required String title,
+    required int hours,
+    required Color backgroundColor,
+    required Color footerColor,
+    required IconData icon,
+  }) {
+    return Container(
+      height: 172,
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(5),
+      ),
       child: Column(
         children: [
-          Icon(icon, color: color, size: 32),
-          const SizedBox(height: 8),
-          Text(
-            value,
-            style: AppColors.headingStyle.copyWith(
-              fontSize: 24,
-              color: color,
-              fontWeight: FontWeight.bold,
+          // Main content area
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    icon,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    hours.toString(),
+                    style: const TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w700,
+                      fontSize: 30,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const Text(
+                    'Hours',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 15,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-          const SizedBox(height: 4),
-          Text(
-            title,
-            style: AppColors.captionStyle.copyWith(
-              fontSize: 12,
-              color: AppColors.darkGray,
+          // Footer
+          Container(
+            height: 32,
+            decoration: BoxDecoration(
+              color: footerColor,
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(5),
+                bottomRight: Radius.circular(5),
+              ),
             ),
-            textAlign: TextAlign.center,
+            child: Center(
+              child: Text(
+                title,
+                style: const TextStyle(
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w500,
+                  fontSize: 10,
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
           ),
         ],
       ),
