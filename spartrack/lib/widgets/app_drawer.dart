@@ -19,10 +19,12 @@ class AppDrawer extends StatelessWidget {
     // Capture a valid NavigatorState before popping the drawer
     final navigator = Navigator.of(context, rootNavigator: true);
     Navigator.pop(context); // Close the drawer first
-    final result = await SweetAlertHelper.showQuestion(
+    final result = await SweetAlertHelper.showCustomQuestion(
       context: context,
       title: "Logout Confirmation",
       text: "Are you sure you want to logout?",
+      confirmButtonText: "Logout",
+      cancelButtonText: "Cancel",
     );
 
     if (result) {
