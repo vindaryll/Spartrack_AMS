@@ -152,16 +152,16 @@ class ProgressDashboardTab extends StatelessWidget {
           
           // Recent Activities List
           _buildActivityItem(
-            icon: Icons.login,
-            title: 'Time In',
-            subtitle: 'Today at 8:00 AM',
-            color: AppColors.successGreen,
-          ),
-          _buildActivityItem(
             icon: Icons.logout,
             title: 'Time Out',
-            subtitle: 'Today at 5:00 PM',
+            subtitle: 'Today at 5:20 PM',
             color: AppColors.dangerRed,
+          ),
+          _buildActivityItem(
+            icon: Icons.login,
+            title: 'Time In',
+            subtitle: 'Today at 7:00 AM',
+            color: AppColors.successGreen,
           ),
           _buildActivityItem(
             icon: Icons.save,
